@@ -18,6 +18,11 @@ Route::get('/gerbang-admin', function () {
 Route::get('/artikel', \App\Livewire\PublicArticleIndex::class)->name('artikel.index');
 Route::get('/artikel/{slug}', \App\Livewire\PublicArticleShow::class)->name('artikel.show');
 
+Route::get('/home', \App\Livewire\Guest\Home\Index::class)->name('home.index');
+Route::get('/kuliner', \App\Livewire\Guest\Kuliner\Index::class)->name('kuliner.index');
+Route::get('/event', \App\Livewire\Guest\Event\Index::class)->name('event.index');
+Route::get('/kontak-kami', \App\Livewire\Guest\KontakKami\Index::class)->name('kontak-kami.index');
+
 // Rute Backend Manajemen (Harus Login + Punya Role Admin / Manager)
 Route::middleware(['auth', 'role:admin,content_manager'])->group(function () {
     Route::get('/dashboard/artikel', \App\Livewire\ManageArticles::class)->name('artikel.manage');
