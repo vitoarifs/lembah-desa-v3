@@ -23,6 +23,11 @@ Route::get('/kuliner', \App\Livewire\Guest\Kuliner\Index::class)->name('kuliner.
 Route::get('/event', \App\Livewire\Guest\Event\Index::class)->name('event.index');
 Route::get('/kontak-kami', \App\Livewire\Guest\KontakKami\Index::class)->name('kontak-kami.index');
 
+
+Route::get('/emails', \App\Livewire\Mail\ContactMessages::class)->name('emails');
+
+
+
 // Rute Backend Manajemen (Harus Login + Punya Role Admin / Manager)
 Route::middleware(['auth', 'role:admin,content_manager'])->group(function () {
     Route::get('/dashboard/artikel', \App\Livewire\ManageArticles::class)->name('artikel.manage');

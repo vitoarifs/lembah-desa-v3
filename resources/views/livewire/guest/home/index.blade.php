@@ -179,7 +179,7 @@
                     <img 
                         src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop" 
                         alt="Suasana Alam Lembah Desa" 
-                        class="w-full aspect-[4/3] lg:aspect-[4/5] object-cover"
+                        class="w-full aspect-[4/3] object-cover"
                     />
                 </div>
             </div>
