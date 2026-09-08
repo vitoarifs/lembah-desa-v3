@@ -55,7 +55,7 @@
                     </a>
 
                     <!-- Reservasi -->
-                    <a href="{{ route('kontak-kami.index') }}" wire:navigate
+                    <a href="{{ route('kontak-kami.index') }}"
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('kontak-kami.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Kontak
                         @if(request()->routeIs('kontak-kami.index'))

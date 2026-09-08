@@ -26,31 +26,39 @@
             </div>
           </div>
 
-          <form wire:submit="sendWa" class="space-y-4">
+          <form wire:submit.prevent="sendWa" class="space-y-4">
             <div>
-              <label for="nama" class="block text-xs font-medium text-stone-300 mb-1.5">Nama Klien</label>
-              <input type="text" id="nama" wire:model="waForm.nama" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3.5 py-2.5 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors" placeholder="Masukkan nama kamu">
+              <label for="wa-nama" class="block text-xs font-medium text-stone-300 mb-1.5">Nama Klien</label>
+              <input type="text" id="wa-nama" wire:model="waForm.nama" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3.5 py-2.5 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors" placeholder="Masukkan nama kamu">
               @error('waForm.nama') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label for="tanggal" class="block text-xs font-medium text-stone-300 mb-1.5">Tanggal Kunjungan</label>
-                <input type="date" id="tanggal" wire:model="waForm.tanggal" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3.5 py-2.5 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors">
+                <label for="wa-tanggal" class="block text-xs font-medium text-stone-300 mb-1.5">Tanggal Kunjungan</label>
+                <input
+                    type="date"
+                    id="wa-tanggal"
+                    wire:model="waForm.tanggal"
+                    min="{{ now()->format('Y-m-d') }}"
+                    class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3.5 py-2.5 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors"
+                >                
                 @error('waForm.tanggal') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
               </div>
               <div>
-                <label for="tamu" class="block text-xs font-medium text-stone-300 mb-1.5">Jumlah Tamu</label>
-                <input type="number" id="tamu" min="1" wire:model="waForm.tamu" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3.5 py-2.5 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors" placeholder="Contoh: 4">
+                <label for="wa-tamu" class="block text-xs font-medium text-stone-300 mb-1.5">Jumlah Tamu</label>
+                <input type="number" id="wa-tamu" min="1" wire:model="waForm.tamu" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-3.5 py-2.5 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors" placeholder="Contoh: 1">
                 @error('waForm.tamu') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
               </div>
             </div>
 
-            <button type="submit" wire:loading.attr="disabled" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl text-sm transition-all duration-200 shadow-lg shadow-emerald-950/40 flex items-center justify-center gap-2 active:scale-[0.98]">
+          <button type="submit" 
+                  wire:loading.attr="disabled" 
+                  wire:target="sendWa" 
+                  class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl text-sm transition-all duration-200 shadow-lg active:scale-95 disabled:opacity-50">
               <span wire:loading.remove wire:target="sendWa">Kirim via WhatsApp</span>
-              <span wire:loading wire:target="sendWa">Membuka WA...</span>
-              <svg wire:loading.remove wire:target="sendWa" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-            </button>
+              <span wire:loading wire:target="sendWa">Memvalidasi & Membuka WA...</span>
+          </button>
           </form>
         </div>
 
@@ -80,45 +88,60 @@
 
       </div>
 
-      <!-- KOLOM KANAN (Desktop: Col 7) - Form Email -->
-      <div class="lg:col-span-7 bg-stone-900 border border-stone-800 p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-full">
-        <div>
-          <div class="mb-6">
-            <h2 class="font-serif text-xl sm:text-2xl font-bold text-stone-100">Kirim Pesan Resmi</h2>
-            <p class="text-stone-400 text-xs sm:text-sm mt-1">Untuk kerja sama, saran, atau pertanyaan khusus lainnya.</p>
-          </div>
+<!-- KOLOM KANAN (Desktop: Col 7) - Form Email -->
+<div class="lg:col-span-7 bg-stone-900 border border-stone-800 p-6 sm:p-8 rounded-2xl flex flex-col justify-between h-full">
+  <div>
+    <div class="mb-6">
+      <h2 class="font-serif text-xl sm:text-2xl font-bold text-stone-100">Kirim Pesan Resmi</h2>
+      <p class="text-stone-400 text-xs sm:text-sm mt-1">Untuk kerja sama, saran, atau pertanyaan khusus lainnya.</p>
+    </div>
 
-          @if (session()->has('success'))
-            <div class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm">
-              {{ session('success') }}
-            </div>
-          @endif
+    @if (session()->has('success'))
+      <div class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-sm">
+        {{ session('success') }}
+      </div>
+    @endif
 
-          <form wire:submit="sendEmail" class="space-y-5">
-            <div>
-              <label for="nama" class="block text-xs font-medium text-stone-300 mb-1.5">Nama Lengkap</label>
-              <input type="text" id="nama" wire:model="emailForm.nama" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-3 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors" placeholder="Masukkan nama lengkap">
-              @error('emailForm.nama') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
-            </div>
+    <form wire:submit="sendEmail" class="space-y-5">
+      <!-- Input: Nama Lengkap -->
+      <div>
+        <label for="email-nama" class="block text-xs font-medium text-stone-300 mb-1.5">Nama Lengkap</label>
+        <input type="text" id="email-nama" wire:model="emailForm.nama" 
+               class="w-full bg-stone-950 border @error('emailForm.nama') border-rose-500/80 @else border-stone-800 focus:border-amber-500 @enderror rounded-lg px-4 py-3 text-stone-100 text-sm focus:outline-none transition-colors" 
+               placeholder="Masukkan nama lengkap">
+        @error('emailForm.nama') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+      </div>
 
-            <div>
-              <label for="address" class="block text-xs font-medium text-stone-300 mb-1.5">Alamat Email</label>
-              <input type="email" id="address" wire:model="emailForm.address" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-3 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors" placeholder="nama@email.com">
-              @error('emailForm.address') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
-            </div>
+      <!-- Input: Alamat Email -->
+      <div>
+        <label for="email-address" class="block text-xs font-medium text-stone-300 mb-1.5">Alamat Email</label>
+        <input type="email" id="email-address" wire:model="emailForm.address" 
+               class="w-full bg-stone-950 border @error('emailForm.address') border-rose-500/80 @else border-stone-800 focus:border-amber-500 @enderror rounded-lg px-4 py-3 text-stone-100 text-sm focus:outline-none transition-colors" 
+               placeholder="nama@email.com">
+        @error('emailForm.address') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+      </div>
 
-            <div>
-              <label for="pesan" class="block text-xs font-medium text-stone-300 mb-1.5">Pesan</label>
-              <textarea id="pesan" wire:model="emailForm.pesan" rows="5" class="w-full bg-stone-950 border border-stone-800 rounded-lg px-4 py-3 text-stone-100 text-sm focus:outline-none focus:border-amber-500 transition-colors resize-none" placeholder="Tuliskan pesan detail Anda di sini..."></textarea>
-              @error('emailForm.pesan') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
-            </div>
+      <!-- Input: Pesan -->
+      <div>
+        <label for="email-pesan" class="block text-xs font-medium text-stone-300 mb-1.5">Pesan</label>
+        <textarea id="email-pesan" wire:model="emailForm.pesan" rows="5" 
+                  class="w-full bg-stone-950 border @error('emailForm.pesan') border-rose-500/80 @else border-stone-800 focus:border-amber-500 @enderror rounded-lg px-4 py-3 text-stone-100 text-sm focus:outline-none transition-colors resize-none" 
+                  placeholder="Tuliskan pesan detail Anda di sini..."></textarea>
+        @error('emailForm.pesan') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+      </div>
 
-            <button type="submit" wire:loading.attr="disabled" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-medium py-3.5 px-6 rounded-xl text-sm transition-all duration-200 shadow-lg shadow-amber-950/40 active:scale-[0.98]">
-              <span wire:loading.remove wire:target="sendEmail">Kirim Pesan Email</span>
-              <span wire:loading wire:target="sendEmail">Mengirim Pesan...</span>
-            </button>
-          </form>
-        </div>
+      <!-- Tombol Submit Teroptimasi -->
+      <button type="submit" 
+              wire:loading.attr="disabled" 
+              wire:target="sendEmail" 
+              class="w-full bg-amber-600 hover:bg-amber-500 text-white font-medium py-3.5 px-6 rounded-xl text-sm transition-all duration-200 shadow-lg shadow-amber-950/40 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+        <span wire:loading.remove wire:target="sendEmail">Kirim Pesan Email</span>
+        <span wire:loading wire:target="sendEmail">Mengirim Pesan...</span>
+      </button>
+    </form>
+  </div>
+</div>
+
       </div>
 
     </div>
@@ -126,8 +149,8 @@
 
 <script>
     document.addEventListener('livewire:init', () => {
-        Livewire.on('open-wa-link', (event) => {
-            window.open(event.url, '_blank');
+        Livewire.on('redirect-to-whatsapp', ({ url }) => {
+            window.location.href = url;
         });
     });
 </script>
