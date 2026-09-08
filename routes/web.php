@@ -15,8 +15,6 @@ Route::get('/gerbang-admin', function () {
 
 
 // Rute Publik (Akses Tanpa Login)
-Route::get('/artikel', \App\Livewire\PublicArticleIndex::class)->name('artikel.index');
-Route::get('/artikel/{slug}', \App\Livewire\PublicArticleShow::class)->name('artikel.show');
 
 Route::get('/', \App\Livewire\Guest\Home\Index::class)->name('home.index');
 Route::get('/kuliner', \App\Livewire\Guest\Kuliner\Index::class)->name('kuliner.index');
@@ -30,7 +28,7 @@ Route::get('/emails', \App\Livewire\Mail\ContactMessages::class)->name('emails')
 
 // Rute Backend Manajemen (Harus Login + Punya Role Admin / Manager)
 Route::middleware(['auth', 'role:admin,content_manager'])->group(function () {
-    Route::get('/dashboard/artikel', \App\Livewire\ManageArticles::class)->name('artikel.manage');
+    //
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
