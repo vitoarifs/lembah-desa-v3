@@ -62,7 +62,7 @@
 
                 <!-- Mobile App Name -->
                 <span class="ml-3 text-lg font-semibold text-gray-800">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Lembah Desa') }}
                 </span>
             </header>
 

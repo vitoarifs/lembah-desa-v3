@@ -47,7 +47,7 @@ new class extends Component
             />
 
             <span class="truncate text-lg font-bold text-gray-800">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name', 'Lembah Desa') }}
             </span>
         </a>
 
@@ -96,7 +96,6 @@ new class extends Component
                         ? 'bg-gray-900 text-white'
                         : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}"
             >
-
                 <svg
                     class="h-5 w-5 shrink-0"
                     fill="none"
@@ -110,9 +109,59 @@ new class extends Component
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
                     />
                 </svg>
-
                 <span>Dashboard</span>
+            </a>
 
+            <!-- Kategori Kuliner -->
+            <a
+                href="{{ route('admin.kuliner.kategori') }}"
+                wire:navigate
+                @click="sidebarOpen = false"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition
+                    {{ request()->routeIs('admin.kuliner.kategori')
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}"
+            >
+                <svg
+                    class="h-5 w-5 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
+                    />
+                </svg>
+                <span>Kategori Kuliner</span>
+            </a>
+
+            <!-- Menu Kuliner -->
+            <a
+                href="{{ route('admin.kuliner.menu') }}"
+                wire:navigate
+                @click="sidebarOpen = false"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition
+                    {{ request()->routeIs('admin.kuliner.menu')
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}"
+            >
+                <svg
+                    class="h-5 w-5 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
+                    />
+                </svg>
+                <span>Menu Kuliner</span>
             </a>
 
         </div>
