@@ -19,8 +19,8 @@ Route::get('/gerbang-admin', function () {
 Route::get('/', \App\Livewire\Guest\Home\Index::class)->name('home.index');
 
 Route::get('/kuliner', \App\Livewire\Guest\Kuliner\Index::class)->name('kuliner.index');
-Route::get('/kuliner/{kategori_slug}', \App\Livewire\Guest\Kuliner\KulinerKategori\Index::class)->name('kuliner.category.index');
-Route::get('/kuliner/{kategori_slug}/{menu_slug}', \App\Livewire\Guest\Kuliner\KulinerKategori\KulinerDetail\Index::class)->name('kuliner.category.detail.index');
+Route::get('/kuliner/{category:slug}', \App\Livewire\Guest\Kuliner\KulinerKategori\Index::class)->name('kuliner.category.index');
+Route::get('/kuliner/{category:slug}/{menu:slug}', \App\Livewire\Guest\Kuliner\KulinerKategori\KulinerDetail\Index::class)->name('kuliner.category.detail.index');
 
 Route::get('/event', \App\Livewire\Guest\Event\Index::class)->name('event.index');
 Route::get('/kontak-kami', \App\Livewire\Guest\KontakKami\Index::class)->name('kontak-kami.index');
