@@ -1,22 +1,33 @@
 <div>
     <!-- Slot Header Admin -->
     <x-slot name="header">
+        <h2 class="text-xl font-bold text-gray-800 leading-tight">Kelola Kategori Kuliner</h2>
+        <p class="text-xs text-gray-500 mt-1">Daftar grup menu kuliner untuk publik Lembah Desa</p>
+    </x-slot>
+
+    <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
+
+        <!-- Action Bar & Filter Search -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-                <h2 class="text-xl font-bold text-gray-800 leading-tight">Kelola Kategori Kuliner</h2>
-                <p class="text-xs text-gray-500 mt-1">Daftar grup menu kuliner untuk publik Lembah Desa</p>
+            <div class="relative w-full sm:w-72">
+                <input 
+                    type="text" 
+                    wire:model.live.debounce.300ms="search" 
+                    placeholder="Cari nama kategori..." 
+                    class="w-full pl-9 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-800 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                >
+                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
+
             <button 
+                type="button"
                 wire:click="openModal" 
-                class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition"
+                class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition cursor-pointer"
             >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
                 <span>Tambah Kategori</span>
             </button>
         </div>
-    </x-slot>
-
-    <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
 
         <!-- Notifikasi / Flash Messages -->
         @if (session()->has('message'))
@@ -33,20 +44,6 @@
 
         <!-- Card Tabel Data -->
         <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
-            <!-- Search & Filter Bar -->
-            <div class="p-4 border-b border-gray-200 bg-gray-50/50 flex items-center justify-between gap-4">
-                <div class="relative w-full sm:w-72">
-                    <input 
-                        type="text" 
-                        wire:model.live.debounce.300ms="search" 
-                        placeholder="Cari nama kategori..." 
-                        class="w-full pl-9 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-800 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                    >
-                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </div>
-            </div>
-
-            <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs text-gray-600">
                     <thead class="bg-gray-100 text-gray-700 font-semibold uppercase tracking-wider border-b border-gray-200">
@@ -68,11 +65,11 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-right space-x-2">
-                                    <button wire:click="edit({{ $category->id }})" class="text-indigo-600 hover:text-indigo-900 font-medium transition">Edit</button>
+                                    <button wire:click="edit({{ $category->id }})" class="text-indigo-600 hover:text-indigo-900 font-medium transition cursor-pointer">Edit</button>
                                     <button 
                                         onclick="confirm('Yakin ingin menghapus kategori ini?') || event.stopImmediatePropagation()" 
                                         wire:click="delete({{ $category->id }})" 
-                                        class="text-rose-600 hover:text-rose-900 font-medium transition"
+                                        class="text-rose-600 hover:text-rose-900 font-medium transition cursor-pointer"
                                     >Hapus</button>
                                 </td>
                             </tr>
@@ -94,7 +91,7 @@
 
     <!-- Modal Form Create / Edit -->
     @if ($isModalOpen)
-        <div class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+        <div class="fixed inset-0 z-50 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
                 <!-- Backdrop -->
                 <div class="fixed inset-0 bg-gray-900/60 transition-opacity" wire:click="closeModal"></div>
@@ -132,13 +129,13 @@
                             <button 
                                 type="button" 
                                 wire:click="closeModal" 
-                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-lg transition"
+                                class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-lg transition cursor-pointer"
                             >
                                 Batal
                             </button>
                             <button 
                                 type="submit" 
-                                class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition"
+                                class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition cursor-pointer"
                             >
                                 {{ $categoryId ? 'Simpan Perubahan' : 'Tambah Kategori' }}
                             </button>

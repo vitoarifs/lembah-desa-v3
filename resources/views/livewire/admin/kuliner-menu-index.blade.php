@@ -1,19 +1,9 @@
 <div>
     <!-- Slot Header Admin -->
     <x-slot name="header">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
                 <h2 class="text-xl font-bold text-gray-800 leading-tight">Kelola Menu Kuliner</h2>
                 <p class="text-xs text-gray-500 mt-1">Daftar hidangan, harga, dan foto menu Lembah Desa</p>
-            </div>
-            <button 
-                wire:click="openModal" 
-                class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition"
-            >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                <span>Tambah Menu Baru</span>
-            </button>
-        </div>
+
     </x-slot>
 
     <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
@@ -26,7 +16,7 @@
         @endif
 
         <!-- Filter & Table Card -->
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm justify-between overflow-hidden">
             <!-- Search & Filter Bar -->
             <div class="p-4 border-b border-gray-200 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
@@ -52,6 +42,14 @@
                         @endforeach
                     </select>
                 </div>
+
+                <button 
+                    wire:click="openModal" 
+                    class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                    <span>Tambah Menu Baru</span>
+                </button>
             </div>
 
             <!-- Table Menu -->
@@ -123,7 +121,7 @@
 
     <!-- Modal Form Create / Edit -->
     @if ($isModalOpen)
-        <div class="fixed inset-0 z-50 overflow-y-auto" x-cloak>
+        <div class="fixed inset-0 z-50 overflow-y-auto">
             <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
                 <div class="fixed inset-0 bg-gray-900/60 transition-opacity" wire:click="closeModal"></div>
 

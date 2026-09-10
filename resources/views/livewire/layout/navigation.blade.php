@@ -114,7 +114,7 @@ new class extends Component
 
             <!-- Kategori Kuliner -->
             <a
-                href="{{ route('admin.kuliner.kategori') }}"
+                href="{{ route('admin.kuliner.kategori.index') }}"
                 wire:navigate
                 @click="sidebarOpen = false"
                 class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition
@@ -140,7 +140,7 @@ new class extends Component
 
             <!-- Menu Kuliner -->
             <a
-                href="{{ route('admin.kuliner.menu') }}"
+                href="{{ route('admin.kuliner.menu.index') }}"
                 wire:navigate
                 @click="sidebarOpen = false"
                 class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition

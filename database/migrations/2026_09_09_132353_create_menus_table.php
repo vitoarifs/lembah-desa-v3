@@ -15,7 +15,7 @@ public function up(): void
             $table->string('slug')->unique();
             $table->unsignedBigInteger('harga');
             $table->string('foto')->nullable();
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->json('isi_paket')->nullable();
             $table->timestamps();
         });

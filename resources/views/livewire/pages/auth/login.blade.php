@@ -129,7 +129,7 @@ new #[Layout('layouts.login')] class extends Component
 
 
                     <!-- Remember + Forgot Password -->
-                    <div class="flex items-center justify-between gap-4">
+                    {{-- <div class="flex items-center justify-between gap-4">
 
                         <label
                             for="remember"
@@ -159,7 +159,7 @@ new #[Layout('layouts.login')] class extends Component
                             </a>
                         @endif
 
-                    </div>
+                    </div> --}}
 
 
                     <!-- Login Button -->

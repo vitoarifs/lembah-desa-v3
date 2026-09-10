@@ -85,7 +85,7 @@ class KulinerMenuIndex extends Component
             'slug' => ['required', 'string', 'max:255', Rule::unique('menus', 'slug')->ignore($this->menuId)],
             'harga' => ['required', 'numeric', 'min:0'],
             'foto' => [$this->menuId ? 'nullable' : 'required', 'image', 'max:2048'], // Max 2MB
-            'deskripsi' => ['required', 'string'],
+            'deskripsi' => ['nullable', 'string'],
         ]);
 
         // Bersihkan array isi_paket dari string kosong
@@ -108,7 +108,7 @@ class KulinerMenuIndex extends Component
                 'slug' => $this->slug,
                 'harga' => $this->harga,
                 'foto' => $fotoPath,
-                'deskripsi' => $this->deskripsi,
+                'deskripsi' => $this->deskripsi ?: null,
                 'isi_paket' => !empty($cleanIsiPaket) ? $cleanIsiPaket : null,
             ]
         );
