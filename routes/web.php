@@ -38,15 +38,9 @@ Route::middleware(['auth', 'role:admin,content_manager'])->group(function () {
 
 Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/kuliner/kategori', App\Livewire\Admin\KulinerCategoryIndex::class)->name('kuliner.kategori.index');
-    Route::get('/kuliner/kategori/create', App\Livewire\Admin\KulinerCategoryCreate::class)->name('kuliner.kategori.create');
-    Route::get('/kuliner/kategori/{category}/edit', App\Livewire\Admin\KulinerCategoryEdit::class)->name('kuliner.kategori.edit');
 
-    // Route::get('/kuliner/kategori/{category}/delete', App\Livewire\Admin\KulinerCategoryDelete::class)->name('kuliner.kategori.delete');
 
     Route::get('/kuliner/menu', App\Livewire\Admin\KulinerMenuIndex::class)->name('kuliner.menu.index');
-    Route::get('/kuliner/menu/create', App\Livewire\Admin\KulinerMenuCreate::class)->name('kuliner.menu.create');
-    Route::get('/kuliner/menu/{menu}/edit', App\Livewire\Admin\KulinerMenuEdit::class)->name('kuliner.menu.edit');
-
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
