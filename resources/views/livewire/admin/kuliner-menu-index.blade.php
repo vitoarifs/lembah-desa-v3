@@ -192,7 +192,7 @@
 
                         <!-- Deskripsi -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Deskripsi Ringkas</label>
+                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Deskripsi Ringkas (Opsional)</label>
                             <textarea wire:model="deskripsi" rows="3" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-900 focus:ring-2 focus:ring-amber-500" placeholder="Jelaskan cita rasa dan keunggulan menu ini..."></textarea>
                             @error('deskripsi') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
