@@ -7,12 +7,22 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('layouts.guest')]
-
 class Index extends Component
 {
     public function render()
     {
-        $events = Event::where('is_active', true)
+        $events = Event::query()
+            ->select([
+                'id',
+                'judul',
+                'slug',
+                'tanggal',
+                'waktu',
+                'lokasi',
+                'htm',
+                'deskripsi',
+            ])
+            ->where('is_active', true)
             ->orderBy('tanggal', 'asc')
             ->get();
 

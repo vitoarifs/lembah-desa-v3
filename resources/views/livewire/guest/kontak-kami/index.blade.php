@@ -243,12 +243,14 @@
 
                         <div class="absolute inset-0 w-full h-full bg-stone-950">
 
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126497.87321528575!2d110.339825!3d-7.797068!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5787bd5b6bc5%3A0x21723fd4d3684f71!2sYogyakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
-                                class="w-full h-full border-0 rounded-2xl"
-                                allowfullscreen
-                                loading="lazy"
-                            ></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.3931979317726!2d110.56114919999999!3d-7.9582553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7bb3af12033a93%3A0x7e81e2f975cb054c!2sPulutan%20Village%20Valley!5e0!3m2!1sen!2sid!4v1789134892883!5m2!1sen!2sid" 
+                            width="600" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen 
+                            loading="lazy" 
+                            referrerpolicy="strict-origin-when-cross-origin">
+                            </iframe>
 
                         </div>
 
