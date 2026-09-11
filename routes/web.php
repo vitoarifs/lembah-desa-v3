@@ -37,10 +37,16 @@ Route::middleware(['auth', 'role:admin,content_manager'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name('admin.')->group(function () {
+
+    // Route::get('/dashboard', \App\Livewire\Admin\Dashboard\Index::class)->name('dashboard.index');
+    
+
+    // Rute untuk manajemen kuliner
     Route::get('/kuliner/kategori', App\Livewire\Admin\KulinerCategoryIndex::class)->name('kuliner.kategori.index');
-
-
     Route::get('/kuliner/menu', App\Livewire\Admin\KulinerMenuIndex::class)->name('kuliner.menu.index');
+
+    // Rute untuk manajemen event
+    Route::get('/event', App\Livewire\Admin\Event\Index::class)->name('event.index');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

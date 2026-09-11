@@ -164,6 +164,32 @@ new class extends Component
                 <span>Menu Kuliner</span>
             </a>
 
+            <!-- Event dan Acara -->
+            <a
+                href="{{ route('admin.event.index') }}"
+                wire:navigate
+                @click="sidebarOpen = false"
+                class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition
+                    {{ request()->routeIs('admin.event.index')
+                        ? 'bg-gray-900 text-white'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}"
+            >
+                <svg
+                    class="h-5 w-5 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6"
+                    />
+                </svg>
+                <span>Event dan Acara</span>
+            </a>
+
         </div>
 
     </nav>

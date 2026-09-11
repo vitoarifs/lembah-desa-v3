@@ -53,15 +53,6 @@
                     'htm' => 'Gratis (Cukup Pesan Menu Makanan)',
                     'deskripsi' => 'Pertunjukan tarian daerah dan akustik lokal menemani santap malam Anda di bawah sorot lampu hias outdoor Lembah Desa.',
                 ],
-                [
-                    'id' => 4,
-                    'judul' => 'Pentas Seni Catur Wulanan & Makan Malam Malam Minggu',
-                    'tanggal' => 'Sabtu, 31 Oktober 2026',
-                    'waktu' => '18:30 - 21:30 WIB',
-                    'lokasi' => 'Area Panggung Semi-Outdoor',
-                    'htm' => 'Gratis (Cukup Pesan Menu Makanan)',
-                    'deskripsi' => 'Pertunjukan tarian daerah dan akustik lokal menemani santap malam Anda di bawah sorot lampu hias outdoor Lembah Desa.',
-                ],
             ];
         @endphp
 
