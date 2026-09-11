@@ -36,10 +36,10 @@
                         @endif
                     </a>
 
-                    <!-- Menu Populer -->
+                    <!-- Kuliner -->
                     <a href="{{ route('kuliner.index') }}" wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('kuliner.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
-                        Menu Populer
+                        Kuliner
                         @if(request()->routeIs('kuliner.index'))
                             <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-orange-500 rounded-full"></span>
                         @endif
@@ -113,10 +113,10 @@
                     Beranda
                 </a>
 
-                <!-- Menu Populer -->
+                <!-- Kuliner -->
                 <a href="{{ route('kuliner.index') }}" @click="isOpen = false" wire:navigate
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('kuliner.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
-                    Menu Populer
+                    Kuliner
                 </a>
 
                 <!-- Event & Acara -->

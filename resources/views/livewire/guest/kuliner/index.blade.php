@@ -5,25 +5,30 @@
         {{-- =========================================================
             HERO
         ========================================================== --}}
-        <header class="border-b border-stone-800 pb-10 lg:pb-12 mb-12 lg:mb-16">
+        <header class="border-b border-stone-800 pb-8 lg:pb-10 mb-10 lg:mb-14">
 
-            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-12">
+            <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 lg:gap-10">
 
                 <div class="max-w-3xl">
 
-                    <span class="inline-flex items-center gap-2 text-amber-500 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em]">
+                    {{-- Label --}}
+                    <span class="inline-flex items-center gap-2 text-amber-500 text-xs lg:text-[13px] font-semibold uppercase tracking-[0.2em]">
                         <span class="w-6 h-px bg-amber-500"></span>
                         Cita Rasa Otentik
                     </span>
 
-                    <h1 class="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-stone-100 leading-[1.1]">
+
+                    {{-- H1 --}}
+                    <h1 class="mt-2 font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold text-stone-100 leading-tight">
                         Petualangan Kuliner
                         <span class="text-amber-500">Lembah Desa</span>
                     </h1>
 
                 </div>
 
-                <p class="lg:max-w-md text-sm sm:text-base text-stone-400 leading-relaxed">
+
+                {{-- Deskripsi Header --}}
+                <p class="lg:max-w-md text-sm sm:text-[15px] lg:text-base text-stone-400 leading-relaxed">
                     Sajian masakan warisan dengan bahan baku segar hasil bumi lokal.
                     Nikmati cita rasa tradisional langsung di tengah suasana pedesaan
                     yang asri dan tenang.
@@ -37,7 +42,7 @@
         {{-- =========================================================
             MENU CATEGORIES
         ========================================================== --}}
-        <div class="space-y-14 sm:space-y-16 lg:space-y-20">
+        <div class="space-y-12 sm:space-y-14 lg:space-y-16">
 
             @forelse ($categories as $category)
 
@@ -50,7 +55,8 @@
 
                             <div class="flex items-center gap-3">
 
-                                <h2 class="font-serif text-xl sm:text-2xl lg:text-3xl font-bold text-stone-100">
+                                {{-- H2 --}}
+                                <h2 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 leading-tight">
                                     {{ $category->nama }}
                                 </h2>
 
@@ -58,7 +64,9 @@
 
                             </div>
 
-                            <p class="mt-1.5 text-xs sm:text-sm text-stone-500">
+
+                            {{-- Subtitle --}}
+                            <p class="mt-1.5 text-xs sm:text-sm text-stone-500 leading-normal">
                                 Pilihan {{ strtolower($category->nama) }} untuk dinikmati
                             </p>
 
@@ -70,6 +78,7 @@
                             href="{{ url('/kuliner/' . $category->slug) }}"
                             class="shrink-0 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-500 hover:text-amber-400 transition-colors"
                         >
+
                             <span class="hidden sm:inline">Lihat Semua</span>
                             <span class="sm:hidden">Semua</span>
 
@@ -87,6 +96,7 @@
                                     d="M9 5l7 7-7 7"
                                 />
                             </svg>
+
                         </a>
 
                     </div>
@@ -141,11 +151,15 @@
                                                         stroke-linecap="round"
                                                         stroke-linejoin="round"
                                                         stroke-width="1.5"
-                                                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14a1 1 0 001 1z"
+                                                        d="M4 16l4.586-4.586a2 2 0 011.414-.586
+                                                           2 2 0 011.414.586L16 16m-2-2l1.586-1.586
+                                                           a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14
+                                                           a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14
+                                                           a1 1 0 001 1z"
                                                     />
                                                 </svg>
 
-                                                <span class="text-[11px]">
+                                                <span class="text-xs">
                                                     Foto belum tersedia
                                                 </span>
 
@@ -162,23 +176,28 @@
                                     {{-- CONTENT --}}
                                     <div class="flex flex-col flex-1 p-4 sm:p-5">
 
+                                        {{-- H3 / Nama Menu --}}
                                         <h3
-                                            class="font-serif text-base sm:text-lg font-bold text-stone-100 leading-snug
-                                                   line-clamp-2 min-h-[2.8rem]"
+                                            class="font-serif text-xl sm:text-[21px] lg:text-[22px]
+                                                   font-bold text-stone-100 leading-snug
+                                                   line-clamp-2 min-h-[3.25rem]"
                                         >
                                             {{ $item->nama }}
                                         </h3>
 
 
-                                        <p class="mt-2 text-amber-500 text-sm font-semibold">
+                                        {{-- Harga --}}
+                                        <p class="mt-2 text-amber-500 text-sm lg:text-[15px] font-semibold leading-normal">
                                             {{ $item->formatted_harga }}
                                         </p>
 
 
+                                        {{-- Deskripsi --}}
                                         @if ($item->deskripsi)
 
                                             <p
-                                                class="mt-2.5 text-xs sm:text-sm text-stone-400 leading-relaxed
+                                                class="mt-2.5 text-sm lg:text-[15px]
+                                                       text-stone-400 leading-relaxed
                                                        line-clamp-3"
                                             >
                                                 {{ $item->deskripsi }}
@@ -233,10 +252,12 @@
                                     </div>
 
 
+                                    {{-- Caption utama --}}
                                     <span class="mt-4 text-sm font-semibold text-stone-300 group-hover:text-amber-500 transition-colors">
                                         Jelajahi Semua
                                     </span>
 
+                                    {{-- Caption pendukung --}}
                                     <span class="mt-1 text-xs text-stone-500">
                                         {{ $category->nama }}
                                     </span>
@@ -277,11 +298,15 @@
 
                     </div>
 
-                    <h2 class="mt-5 font-serif text-xl font-bold text-stone-200">
+
+                    {{-- H2 Empty State --}}
+                    <h2 class="mt-5 font-serif text-xl sm:text-[21px] font-bold text-stone-200 leading-tight">
                         Menu belum tersedia
                     </h2>
 
-                    <p class="mt-2 text-sm text-stone-500">
+
+                    {{-- Body --}}
+                    <p class="mt-2 text-sm text-stone-500 leading-relaxed">
                         Pilihan kuliner sedang dipersiapkan.
                     </p>
 
@@ -308,15 +333,20 @@
 
                     <div class="max-w-2xl">
 
-                        <span class="text-amber-500 text-[11px] font-semibold uppercase tracking-[0.18em]">
+                        {{-- Label --}}
+                        <span class="text-amber-500 text-xs lg:text-[13px] font-semibold uppercase tracking-[0.18em]">
                             Nikmati Bersama
                         </span>
 
-                        <h2 class="mt-2 font-serif text-2xl sm:text-3xl font-bold text-stone-100">
+
+                        {{-- CTA H2 --}}
+                        <h2 class="mt-2 font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-stone-100 leading-tight">
                             Ingin Reservasi Tempat atau Katering Acara?
                         </h2>
 
-                        <p class="mt-3 text-sm text-stone-400 leading-relaxed">
+
+                        {{-- CTA Body --}}
+                        <p class="mt-3 text-sm lg:text-[15px] text-stone-400 leading-relaxed">
                             Kami siap melayani berbagai pesanan tempat dan hidangan
                             tradisional untuk momen spesial Anda.
                             Yuk, hubungi kami dan pesan sekarang.
