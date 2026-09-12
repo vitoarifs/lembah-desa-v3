@@ -14,7 +14,7 @@
 
                 <!-- H1 -->
                 <h1 class="font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold leading-tight text-stone-100 mt-1.5">
-                    Acara di Lembah Desa
+                    Acara di <span class="text-amber-500">{{$siteIdentity->nama_website}}</span>
                 </h1>
 
             </div>

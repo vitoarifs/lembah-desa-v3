@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use App\Models\SiteIdentity;
 
 #[Layout('layouts.guest')]
 class Index extends Component
@@ -20,13 +21,14 @@ class Index extends Component
 
     public function sendWa(): void
     {
+        $identity = SiteIdentity::getSettings();
+        $nomorWa = $identity?->nomor_whatsapp;
+
         $this->waForm->validate();
 
         $tanggal = Carbon::parse($this->waForm->tanggal)
             ->locale('id')
             ->translatedFormat('j F Y');
-
-        $phone = '62895337965404';
 
         $message = "Halo Lembah Desa, saya ingin melakukan reservasi:\n\n"
             . "• Nama: {$this->waForm->nama}\n"
@@ -34,7 +36,7 @@ class Index extends Component
             . "• Jumlah Tamu: {$this->waForm->tamu} orang\n\n"
             . "Mohon info ketersediaan gazebo/tempat. Terima kasih!";
 
-        $url = "https://wa.me/{$phone}?text=" . urlencode($message);
+        $url = "https://wa.me/{$nomorWa}?text=" . urlencode($message);
 
         $this->dispatch(
             'redirect-to-whatsapp',

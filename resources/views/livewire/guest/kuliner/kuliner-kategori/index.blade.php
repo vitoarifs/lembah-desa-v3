@@ -81,7 +81,7 @@
         <article class="group w-[220px] sm:w-[250px] lg:w-[270px]">
 
             <a
-                href="{{ url('/kuliner/' . $category->slug . '/' . $item->slug) }}"
+                href="{{ route('kuliner.category.detail.index', ['category' => $category->slug, 'menu' => $item->slug]) }}"
                 class="block bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden hover:border-stone-700 transition-colors"
             >
 

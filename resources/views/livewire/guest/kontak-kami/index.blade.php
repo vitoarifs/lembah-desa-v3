@@ -16,7 +16,7 @@
                     </span>
 
                     <h1 class="font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold text-stone-100 mt-1.5 leading-tight">
-                        Mari Terhubung di Lembah Desa
+                        Mari Terhubung di <span class="text-amber-500">{{$siteIdentity->nama_website}}</span>
                     </h1>
 
                     <p class="text-stone-400 text-sm sm:text-[15px] lg:text-base mt-3 leading-relaxed">
@@ -202,13 +202,12 @@
 
 
                         <h2 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 leading-tight">
-                            Lembah Desa Resto & Wisata
+                            Wisata {{ $siteIdentity->nama_website }}
                         </h2>
 
 
                         <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed">
-                            Jl. Raya Pedesaan No. 88, Kawasan Lembah Asri,
-                            Kabupaten Sleman, D.I. Yogyakarta 55581
+                            {{ $siteIdentity->alamat }}
                         </p>
 
 

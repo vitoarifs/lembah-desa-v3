@@ -13,7 +13,6 @@
 
                     {{-- Label --}}
                     <span class="inline-flex items-center gap-2 text-amber-500 text-xs lg:text-[13px] font-semibold uppercase tracking-[0.2em]">
-                        <span class="w-6 h-px bg-amber-500"></span>
                         Cita Rasa Otentik
                     </span>
 
@@ -21,7 +20,11 @@
                     {{-- H1 --}}
                     <h1 class="mt-2 font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold text-stone-100 leading-tight">
                         Petualangan Kuliner
-                        <span class="text-amber-500">Lembah Desa</span>
+                        @if ($siteIdentity && $siteIdentity->nama_website)
+                            <span class="text-amber-500">{{ $siteIdentity->nama_website }}</span>
+                        @else
+                            <span class="text-amber-500">Lembah Desa</span>
+                        @endif
                     </h1>
 
                 </div>
@@ -222,15 +225,14 @@
                             <article class="w-[180px] sm:w-[200px] shrink-0 snap-start">
 
                                 <a
-                                    href="{{ url('/kuliner/' . $category->slug) }}"
+                                    href="{{ route('kuliner.category.index', ['category' => $category->slug]) }}"
                                     class="h-full min-h-[280px] bg-stone-900/50 border border-dashed border-stone-800
-                                           rounded-2xl flex flex-col items-center justify-center p-6 text-center
-                                           hover:border-amber-500/50 hover:bg-stone-900 transition-all duration-200 group"
+                                           rounded-2xl flex flex-col items-center justify-center p-6 text-center"
                                 >
 
                                     <div
                                         class="w-12 h-12 rounded-full bg-stone-800 flex items-center justify-center
-                                               text-amber-500 group-hover:bg-amber-500 group-hover:text-stone-950
+                                               text-amber-500
                                                transition-colors duration-200"
                                     >
 
@@ -253,7 +255,7 @@
 
 
                                     {{-- Caption utama --}}
-                                    <span class="mt-4 text-sm font-semibold text-stone-300 group-hover:text-amber-500 transition-colors">
+                                    <span class="mt-4 text-sm font-semibold text-stone-300">
                                         Jelajahi Semua
                                     </span>
 

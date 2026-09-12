@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class SiteIdentity extends Model
 {
@@ -25,4 +26,22 @@ class SiteIdentity extends Model
         'link_tiktok',
         'link_youtube',
     ];
+
+    /**
+     * Ambil data identitas dari cache atau database.
+     */
+    public static function getSettings()
+    {
+        return Cache::rememberForever('site_identity', function () {
+            return self::first();
+        });
+    }
+
+    /**
+     * Hapus cache ketika data diubah.
+     */
+    public static function clearCache(): void
+    {
+        Cache::forget('site_identity');
+    }
 }

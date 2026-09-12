@@ -110,6 +110,8 @@ class Index extends Component
             ]
         );
 
+        SiteIdentity::clearCache();
+
         $this->existingLogo = $logoPath;
         $this->existingFavicon = $faviconPath;
         $this->logo = null;
