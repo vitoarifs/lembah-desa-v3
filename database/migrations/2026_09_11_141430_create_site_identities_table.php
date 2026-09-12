@@ -23,7 +23,7 @@ return new class extends Migration
             // Kontak & Operasional
             $table->string('nomor_whatsapp');
             $table->string('email');
-            $table->string('jam_operasional');
+            $table->json('jam_operasional')->nullable();
             $table->text('alamat');
             $table->text('link_gmaps')->nullable();
             

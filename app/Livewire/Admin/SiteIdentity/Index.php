@@ -18,7 +18,7 @@ class Index extends Component
     public $deskripsi_singkat;
     public $nomor_whatsapp;
     public $email;
-    public $jam_operasional;
+    public array $jam_operasional = [];
     public $alamat;
     public $link_gmaps;
     public $link_instagram;
@@ -41,7 +41,7 @@ class Index extends Component
             $this->deskripsi_singkat = $identity->deskripsi_singkat;
             $this->nomor_whatsapp = $identity->nomor_whatsapp;
             $this->email = $identity->email;
-            $this->jam_operasional = $identity->jam_operasional;
+            $this->jam_operasional = $identity->jam_operasional ?? [];
             $this->alamat = $identity->alamat;
             $this->link_gmaps = $identity->link_gmaps;
             $this->link_instagram = $identity->link_instagram;
@@ -53,6 +53,18 @@ class Index extends Component
         }
     }
 
+    public function addOperationalHour(): void
+    {
+        $this->jam_operasional[] = '';
+    }
+
+    public function removeOperationalHour(int $index): void
+    {
+        unset($this->jam_operasional[$index]);
+
+        $this->jam_operasional = array_values($this->jam_operasional);
+    }
+
     public function save()
     {
         $this->validate([
@@ -61,7 +73,10 @@ class Index extends Component
             'deskripsi_singkat' => 'nullable|string',
             'nomor_whatsapp' => 'required|string|max:50',
             'email' => 'required|email|max:255',
-            'jam_operasional' => 'required|string|max:255',
+
+            'jam_operasional' => 'required|array|min:1',
+            'jam_operasional.*' => 'required|string|max:255',
+
             'alamat' => 'required|string',
             'link_gmaps' => 'nullable|url',
             'link_instagram' => 'nullable|url',
@@ -75,18 +90,28 @@ class Index extends Component
         $identity = SiteIdentity::first() ?? new SiteIdentity();
 
         $logoPath = $this->existingLogo;
+
         if ($this->logo) {
-            if ($this->existingLogo && Storage::disk('public')->exists($this->existingLogo)) {
+            if (
+                $this->existingLogo &&
+                Storage::disk('public')->exists($this->existingLogo)
+            ) {
                 Storage::disk('public')->delete($this->existingLogo);
             }
+
             $logoPath = $this->logo->store('site-identity', 'public');
         }
 
         $faviconPath = $this->existingFavicon;
+
         if ($this->favicon) {
-            if ($this->existingFavicon && Storage::disk('public')->exists($this->existingFavicon)) {
+            if (
+                $this->existingFavicon &&
+                Storage::disk('public')->exists($this->existingFavicon)
+            ) {
                 Storage::disk('public')->delete($this->existingFavicon);
             }
+
             $faviconPath = $this->favicon->store('site-identity', 'public');
         }
 
@@ -114,10 +139,14 @@ class Index extends Component
 
         $this->existingLogo = $logoPath;
         $this->existingFavicon = $faviconPath;
+
         $this->logo = null;
         $this->favicon = null;
 
-        session()->flash('message', 'Identitas website berhasil diperbarui!');
+        session()->flash(
+            'message',
+            'Identitas website berhasil diperbarui!'
+        );
     }
 
     public function render()

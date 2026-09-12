@@ -27,6 +27,10 @@ class SiteIdentity extends Model
         'link_youtube',
     ];
 
+    protected $casts = [
+        'jam_operasional' => 'array',
+    ];
+
     /**
      * Ambil data identitas dari cache atau database.
      */

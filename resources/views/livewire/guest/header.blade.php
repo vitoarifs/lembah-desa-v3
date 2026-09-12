@@ -9,7 +9,7 @@
             <div class="flex items-center justify-between">
                 
                 <!-- LOGO & BRAND -->
-                <a href="{{ route('home.index') }}" wire:navigate class="flex items-center gap-3 group focus:outline-none">
+                <a href="{{ route('home.index') }}" class="flex items-center gap-3 group focus:outline-none">
                     @if($siteIdentity && $siteIdentity->logo)
                         <img src="{{ asset('storage/' . $siteIdentity->logo) }}" alt="Logo" class="w-10 h-10 rounded-full object-contain">
                     @else
@@ -21,7 +21,7 @@
                     @endif
 
                     <div class="flex flex-col">
-                        <span class="font-bold text-xl sm:text-2xl tracking-tight font-serif leading-none text-stone-100">
+                        <span class="font-bold text-xl sm:text-2xl tracking-tight font-serif leading-none text-stone-100 max-w-[250px] sm:max-w-[250px] line-clamp-2 whitespace-normal">
                             @if ($siteIdentity && $siteIdentity->nama_website)
                                 {{ $siteIdentity->nama_website }}
                             @else

@@ -192,14 +192,57 @@
         </div>
 
         <div>
-          <label class="block text-stone-300 text-xs sm:text-sm font-medium mb-1">Jam Operasional</label>
-          <input
-            type="text"
-            wire:model="jam_operasional"
-            class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-2.5 text-stone-100 text-xs sm:text-sm focus:outline-none focus:border-amber-500"
-            placeholder="e.g. Senin - Minggu (08:00 - 21:00 WIB)"
-          >
-          @error('jam_operasional') <span class="text-rose-500 text-xs mt-1 block">{{ $message }}</span> @enderror
+            <label class="block text-stone-300 text-xs sm:text-sm font-medium mb-3">
+                Jam Operasional
+            </label>
+
+            <div class="space-y-3">
+
+                @foreach ($jam_operasional as $index => $jam)
+                    <div class="flex items-start gap-2">
+
+                        <div class="flex-1">
+                            <input
+                                type="text"
+                                wire:model="jam_operasional.{{ $index }}"
+                                class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-2.5 text-stone-100 text-xs sm:text-sm focus:outline-none focus:border-amber-500"
+                                placeholder="Contoh: Senin - Jumat (09.00 - 21.00)"
+                            >
+
+                            @error("jam_operasional.$index")
+                                <span class="text-rose-500 text-xs mt-1 block">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+
+                        <button
+                            type="button"
+                            wire:click="removeOperationalHour({{ $index }})"
+                            class="shrink-0 px-3 py-2.5 rounded-xl border border-rose-900/50 text-rose-400 hover:bg-rose-950/30 transition"
+                            title="Hapus jadwal"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+                @endforeach
+
+            </div>
+
+            <button
+                type="button"
+                wire:click="addOperationalHour"
+                class="mt-3 text-xs sm:text-sm text-amber-400 hover:text-amber-300 transition"
+            >
+                + Tambah jam operasional
+            </button>
+
+            @error('jam_operasional')
+                <span class="text-rose-500 text-xs mt-1 block">
+                    {{ $message }}
+                </span>
+            @enderror
         </div>
       </div>
 

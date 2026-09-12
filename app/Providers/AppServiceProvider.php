@@ -29,15 +29,25 @@ class AppServiceProvider extends ServiceProvider
 
         $siteIdentity = SiteIdentity::getSettings();
 
-        if (! $siteIdentity) {
-            return;
+        // Konfigurasi mail hanya jika SiteIdentity tersedia
+        if ($siteIdentity) {
+            if (filled($siteIdentity->email)) {
+                Config::set(
+                    'mail.from.address',
+                    $siteIdentity->email
+                );
+            }
+
+            if (filled($siteIdentity->nama_website)) {
+                Config::set(
+                    'mail.from.name',
+                    $siteIdentity->nama_website
+                );
+            }
         }
 
-        // SiteIdentity → konfigurasi email Laravel
-        Config::set('mail.from.address', $siteIdentity->email);
-        Config::set('mail.from.name', $siteIdentity->nama_website);
-
-        // Bagikan SiteIdentity ke seluruh tampilan Blade
+        // Tetap bagikan variabel ke semua Blade,
+        // meskipun SiteIdentity belum tersedia.
         View::composer('*', function ($view) use ($siteIdentity) {
             $view->with('siteIdentity', $siteIdentity);
         });

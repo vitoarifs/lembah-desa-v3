@@ -190,21 +190,15 @@
                     Jam Operasional
                 </h3>
 
-                @if ($siteIdentity?->jam_operasional)
+                @if (!empty($siteIdentity?->jam_operasional))
 
-                    <div class="space-y-3 text-sm text-stone-400">
+                    <div class="space-y-2 text-sm text-stone-400">
 
-                        <div class="flex justify-between items-start gap-4 border-b border-stone-800/60 pb-2">
-
-                            <span>
-                                Jam buka
-                            </span>
-
-                            <span class="text-amber-300 font-medium text-right">
-                                {{ $siteIdentity->jam_operasional }}
-                            </span>
-
-                        </div>
+                        @foreach ($siteIdentity->jam_operasional as $jam)
+                            <div class="border-b border-stone-800/60 pb-2">
+                                {{ $jam }}
+                            </div>
+                        @endforeach
 
                     </div>
 
