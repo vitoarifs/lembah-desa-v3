@@ -241,6 +241,39 @@ new class extends Component
                 </svg>
                 <span>Kelola Content Manager</span>
             </a>
+            
+            <!-- Pesan Masuk -->
+            @php
+            $unreadContactCount = \App\Models\ContactMessage::where('is_read', false)->count();
+            @endphp
+
+            <a
+            href="{{ route('admin.contact-messages.index') }}"
+            class="flex items-center justify-between px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors {{ request()->routeIs('admin.contact-messages.*') ? 'bg-amber-600/20 text-amber-400 border border-amber-600/30' : 'text-stone-400 hover:bg-stone-800/60 hover:text-stone-200' }}"
+            >
+            <div class="flex items-center gap-3">
+                <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+                </svg>
+                <span>Pesan Masuk</span>
+            </div>
+
+            @if ($unreadContactCount > 0)
+                <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500 text-stone-950">
+                {{ $unreadContactCount }}
+                </span>
+            @endif
+            </a>
 
         </div>
 

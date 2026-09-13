@@ -48,6 +48,8 @@ Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name
 
     // Rute untuk manajemen event
     Route::get('/event', App\Livewire\Admin\Event\Index::class)->name('event.index');
+
+    Route::get('/pesan-masuk', App\Livewire\Admin\ContactMessages\Index::class)->name('contact-messages.index');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

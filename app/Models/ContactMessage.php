@@ -16,4 +16,8 @@ class ContactMessage extends Model
         'pesan',
         'is_read',
     ];
+
+    protected $casts = [
+        'is_read' => 'boolean',
+    ];
 }
