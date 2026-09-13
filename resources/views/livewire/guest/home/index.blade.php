@@ -24,7 +24,7 @@
     <!-- CTA -->
     <div class="mt-6 sm:mt-7 flex justify-center">
         <a
-            href="#kontak"
+            href="{{ route('kontak-kami.index') }}"
             class="inline-flex items-center justify-center px-6 sm:px-7 py-3 sm:py-3.5 bg-amber-600 hover:bg-amber-500 text-white font-medium text-sm lg:text-[15px] rounded-full shadow-lg shadow-amber-950/50 transition-colors"
         >
             Reservasi Sekarang
@@ -141,7 +141,12 @@
         </span>
 
         <h2 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 mt-1.5 leading-tight">
-            Pengalaman Terbaik di Lembah Desa
+            Pengalaman Terbaik di 
+            @if ($siteIdentity?->nama_website)
+                {{$siteIdentity->nama_website}}
+            @else
+                Lembah Desa
+            @endif
         </h2>
 
     </div>
@@ -224,7 +229,7 @@
             <div class="aspect-[16/9] overflow-hidden bg-stone-950">
                 <img
                     src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop"
-                    alt="Saung Gathering"
+                    alt="Gazebo Gathering"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
             </div>
@@ -240,7 +245,7 @@
                 </div>
 
                 <h3 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 mb-2 leading-tight">
-                    Saung & Area Acara
+                    Gazebo & Area Acara
                 </h3>
 
                 <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed">
@@ -267,7 +272,12 @@
         <div>
 
             <span class="text-amber-500 font-semibold text-xs lg:text-[13px] tracking-widest uppercase">
-                Tentang Lembah Desa
+                Tentang 
+                @if ($siteIdentity?->nama_website)
+                    {{$siteIdentity->nama_website}}
+                @else
+                    Lembah Desa
+                @endif
             </span>
 
             <h2 class="font-serif text-3xl sm:text-4xl lg:text-[40px] font-bold text-stone-100 mt-1.5 sm:mt-2 mb-5 sm:mb-6 leading-tight">
@@ -275,7 +285,7 @@
             </h2>
 
             <p class="text-stone-300 text-sm sm:text-[15px] lg:text-base leading-relaxed mb-4">
-                Berawal dari saung keluarga sederhana di pinggir lembah, kami tumbuh menjadi ruang singgah bagi siapa saja yang merindukan ketenangan suasana pedesaan dan keaslian cita rasa Nusantara.
+                Berawal dari gazebo keluarga sederhana di pinggir lembah, kami tumbuh menjadi ruang singgah bagi siapa saja yang merindukan ketenangan suasana pedesaan dan keaslian cita rasa Nusantara.
             </p>
 
             <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed mb-6 sm:mb-7">
@@ -290,7 +300,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
 
-                    <span>Area saung luas dengan hembusan angin alami</span>
+                    <span>Area gazebo luas dengan hembusan angin alami</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -310,24 +320,6 @@
                 </li>
 
             </ul>
-
-
-            <a
-                href="#tentang"
-                class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium text-sm lg:text-[15px] group"
-            >
-                <span>Baca cerita selengkapnya</span>
-
-                <svg
-                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                </svg>
-            </a>
-
         </div>
 
 
@@ -375,7 +367,7 @@
         <div class="bg-stone-900 border border-stone-800 p-5 sm:p-6 lg:p-7 rounded-xl sm:rounded-2xl flex flex-col justify-between">
 
             <p class="text-stone-300 text-sm lg:text-[15px] leading-relaxed mb-6">
-                "Makanannya luar biasa enak, terutama gurame bumbu desanya. Suasana senja di saungnya sangat tenang, cocok untuk melepas penat setelah seminggu bekerja."
+                "Makanannya luar biasa enak, terutama gurame bumbu desanya. Suasana senja di gazebonya sangat tenang, cocok untuk melepas penat setelah seminggu bekerja."
             </p>
 
             <div>
@@ -461,11 +453,17 @@
     <div class="max-w-4xl mx-auto text-center">
 
         <h2 class="font-serif text-xl sm:text-2xl lg:text-[28px] font-bold text-stone-100 mb-3 sm:mb-4 leading-tight">
-            Siap Menikmati Senja di Lembah Desa?
+            Siap Menikmati Senja di
+            @if ($siteIdentity?->nama_website)
+                {{$siteIdentity->nama_website}}
+            @else
+                Lembah Desa
+            @endif
+            ?
         </h2>
 
         <p class="text-stone-300 text-sm sm:text-[15px] lg:text-base mb-6 sm:mb-7 max-w-2xl mx-auto leading-relaxed">
-            Amankan saung pilihan Anda sekarang untuk memastikan tempat terbaik saat berkunjung bersama keluarga atau kerabat.
+            Amankan gazebo pilihan Anda sekarang untuk memastikan tempat terbaik saat berkunjung bersama keluarga atau kerabat.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">

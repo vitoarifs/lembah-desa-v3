@@ -183,7 +183,12 @@ new #[Layout('layouts.login')] class extends Component
         <!-- Footer -->
         <div class="text-center mt-6">
             <p class="text-xs text-stone-600">
-                © {{ date('Y') }} Lembah Desa
+                © {{ date('Y') }} 
+                @if ($siteIdentity?->nama_website)
+                    {{$siteIdentity->nama_website}}
+                @else
+                    Lembah Desa
+                @endif
             </p>
         </div>
 

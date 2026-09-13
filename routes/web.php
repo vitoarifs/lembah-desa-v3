@@ -31,9 +31,10 @@ Route::get('/emails', \App\Livewire\Mail\ContactMessages::class)->name('emails')
 
 
 
-// Rute Backend Manajemen (Harus Login + Punya Role Admin / Manager)
-Route::middleware(['auth', 'role:admin,content_manager'])->group(function () {
-    //
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/identitas-website', App\Livewire\Admin\SiteIdentity\Index::class)->name('identitas-website.index');
+
+    Route::get('/kelola-content-manager', App\Livewire\Admin\Account\Index::class)->name('kelola-content-manager.index');
 });
 
 Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name('admin.')->group(function () {
@@ -47,8 +48,6 @@ Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name
 
     // Rute untuk manajemen event
     Route::get('/event', App\Livewire\Admin\Event\Index::class)->name('event.index');
-
-    Route::get('/identitas-website', App\Livewire\Admin\SiteIdentity\Index::class)->name('identitas-website.index');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
