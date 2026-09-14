@@ -78,7 +78,7 @@
 
                         {{-- VIEW ALL --}}
                         <a
-                            href="{{ url('/kuliner/' . $category->slug) }}"
+                            href="{{ route('kuliner.category.index', ['category' => $category->slug]) }}"
                             class="shrink-0 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-500 hover:text-amber-400 transition-colors"
                         >
 
@@ -121,7 +121,7 @@
                             >
 
                                 <a
-                                    href="{{ url('/kuliner/' . $category->slug . '/' . $item->slug) }}"
+                                    href="{{ route('kuliner.category.detail.index', ['category' => $category->slug, 'menu' => $item->slug]) }}"
                                     class="h-full bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden flex flex-col
                                            hover:border-stone-700 transition-colors duration-200"
                                 >
@@ -133,6 +133,13 @@
 
                                             <img
                                                 src="{{ Storage::url($item->foto) }}"
+                                                srcset="
+                                                    {{ Storage::url('menus/400/' . basename($item->foto)) }} 400w,
+                                                    {{ Storage::url($item->foto) }} 1000w
+                                                "
+                                                sizes="(min-width: 1024px) 270px, (min-width: 640px) 250px, 220px"
+                                                width="1000"
+                                                height="750"
                                                 alt="{{ $item->nama }}"
                                                 loading="lazy"
                                                 decoding="async"

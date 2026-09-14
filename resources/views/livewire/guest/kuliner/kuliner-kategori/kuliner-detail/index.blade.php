@@ -4,7 +4,7 @@
         <!-- Navigasi Breadcrumb / Kembali -->
         <div class="flex items-center gap-2 text-xs lg:text-[13px] text-stone-400">
             <a
-                href="{{ url('/kuliner') }}"
+                href="{{ route('kuliner.index') }}"
                 class="hover:text-amber-500 transition-colors"
             >
                 Kuliner
@@ -13,7 +13,7 @@
             <span>/</span>
 
             <a
-                href="{{ url('/kuliner/' . $menu->category->slug) }}"
+                href="{{ route('kuliner.category.index', ['category' => $menu->category->slug]) }}"
                 class="hover:text-amber-500 transition-colors"
             >
                 {{ $menu->category->nama }}
@@ -38,11 +38,24 @@
 
                     <!-- Foto -->
                     <div class="relative w-28 h-28 shrink-0 bg-stone-950 rounded-xl overflow-hidden border border-stone-800">
-                        <img
-                            src="{{ asset('storage/' . $menu->foto) }}"
-                            alt="{{ $menu->nama }}"
-                            class="w-full h-full object-cover"
-                        >
+                        @if ($menu->foto)
+                            <img
+                                src="{{ Storage::url($menu->foto) }}"
+                                srcset="
+                                    {{ Storage::url('menus/400/' . basename($menu->foto)) }} 400w,
+                                    {{ Storage::url($menu->foto) }} 1000w
+                                "
+                                sizes="112px"
+                                alt="{{ $menu->nama }}"
+                                loading="lazy"
+                                decoding="async"
+                                class="w-full h-full object-cover"
+                            >
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-stone-600 text-xs">
+                                Tidak ada foto
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Nama + Harga -->

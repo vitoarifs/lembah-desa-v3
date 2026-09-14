@@ -7,7 +7,7 @@
 
             {{-- Navigasi Kembali --}}
             <a
-                href="{{ url('/kuliner') }}"
+                href="{{ route('kuliner.index') }}"
                 class="inline-flex items-center gap-2
                        text-xs lg:text-[13px]
                        font-medium
@@ -87,12 +87,28 @@
 
                 <!-- Foto -->
                 <div class="relative aspect-[4/3] bg-stone-950 overflow-hidden">
-                    <img
-                        src="{{ asset('storage/' . $item->foto) }}"
-                        alt="{{ $item->nama }}"
-                        loading="lazy"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    >
+
+                    @if ($item->foto)
+                        <img
+                            src="{{ Storage::url($item->foto) }}"
+                            srcset="
+                                {{ Storage::url('menus/400/' . basename($item->foto)) }} 400w,
+                                {{ Storage::url($item->foto) }} 1000w
+                            "
+                            sizes="(min-width: 1024px) 270px, (min-width: 640px) 250px, 220px"
+                            width="1000"
+                            height="750"
+                            alt="{{ $item->nama }}"
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        >
+                    @else
+                        <div class="w-full h-full flex items-center justify-center text-stone-600">
+                            Tidak ada foto
+                        </div>
+                    @endif
+
                 </div>
 
                 <!-- Informasi -->

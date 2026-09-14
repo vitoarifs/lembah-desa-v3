@@ -150,7 +150,7 @@
                             type="submit"
                             wire:loading.attr="disabled"
                             wire:target="sendWa"
-                            class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl text-sm transition-all duration-200 shadow-lg active:scale-95 disabled:opacity-50"
+                            class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3 px-4 rounded-xl text-sm shadow-lg disabled:opacity-50"
                         >
 
                             <span wire:loading.remove wire:target="sendWa">
@@ -388,7 +388,7 @@
                             type="submit"
                             wire:loading.attr="disabled"
                             wire:target="sendEmail"
-                            class="w-full bg-amber-600 hover:bg-amber-500 text-white font-medium py-3.5 px-6 rounded-xl text-sm transition-all duration-200 shadow-lg shadow-amber-950/40 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                            class="w-full bg-amber-600 hover:bg-amber-500 text-white font-medium py-3.5 px-6 rounded-xl text-sm shadow-lg shadow-amber-950/40 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
 
                             <span wire:loading.remove wire:target="sendEmail">
