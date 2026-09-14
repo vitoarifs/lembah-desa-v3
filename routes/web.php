@@ -26,10 +26,6 @@ Route::get('/kontak-kami', \App\Livewire\Guest\KontakKami\Index::class)->name('k
 // -----------------------------------------------------------------------------------------------------------
 
 
-// Rute untuk menampilkan pesan kontak di halaman admin, HAPUS ROUTE INI DI MASA DEPAN JIKA SUDAH TIDAK DIPERLUKAN
-Route::get('/emails', \App\Livewire\Mail\ContactMessages::class)->name('emails');
-
-
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/identitas-website', App\Livewire\Admin\SiteIdentity\Index::class)->name('identitas-website.index');

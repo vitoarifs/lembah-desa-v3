@@ -6,7 +6,7 @@
 <section class="relative pt-24 sm:pt-28 lg:pt-32 pb-10 sm:pb-12 lg:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
 
     <!-- Eyebrow -->
-    <span class="inline-block px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs lg:text-[13px] font-semibold tracking-widest uppercase mb-4 sm:mb-5">
+    <span class="inline-block text-amber-400 text-xs lg:text-[13px] font-semibold tracking-widest uppercase mb-4 sm:mb-5">
         Destinasi Wisata & Kuliner Senja
     </span>
 
@@ -457,7 +457,7 @@
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
 
             <a
-                href="#kontak"
+                href="{{ route('kontak-kami.index') }}"
                 class="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 bg-amber-600 hover:bg-amber-500 text-white font-medium text-sm lg:text-[15px] rounded-full shadow-xl shadow-amber-950/50 transition-colors"
             >
                 Reservasi Sekarang
