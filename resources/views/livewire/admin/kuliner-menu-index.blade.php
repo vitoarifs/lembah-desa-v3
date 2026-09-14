@@ -1,233 +1,734 @@
-<div>
-    <!-- Slot Header Admin -->
-    <x-slot name="header">
-                <h2 class="text-xl font-bold text-gray-800 leading-tight">Kelola Menu Kuliner</h2>
-                <p class="text-xs text-gray-500 mt-1">Daftar hidangan, harga, dan foto menu Lembah Desa</p>
+<div class="p-4 sm:p-6 bg-stone-950 min-h-screen text-stone-100 font-sans space-y-6">
 
-    </x-slot>
+    <!-- Flash Message Notification -->
+    @if (session()->has('message'))
+        <div
+            x-data="{ show: true }"
+            x-show="show"
+            x-init="setTimeout(() => show = false, 3000)"
+            x-transition
+            class="bg-emerald-950/80 border border-emerald-600/50 text-emerald-200 px-4 py-3 rounded-xl flex items-center justify-between text-sm"
+        >
+            <span>{{ session('message') }}</span>
 
-    <div class="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6">
-
-        <!-- Notifikasi -->
-        @if (session()->has('message'))
-            <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-lg flex items-center justify-between">
-                <span class="text-xs sm:text-sm font-medium text-emerald-800">{{ session('message') }}</span>
-            </div>
-        @endif
-
-        <!-- Filter & Table Card -->
-        <div class="bg-white border border-gray-200 rounded-xl shadow-sm justify-between overflow-hidden">
-            <!-- Search & Filter Bar -->
-            <div class="p-4 border-b border-gray-200 bg-gray-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                    <!-- Search Input -->
-                    <div class="relative w-full sm:w-64">
-                        <input 
-                            type="text" 
-                            wire:model.live.debounce.300ms="search" 
-                            placeholder="Cari nama menu..." 
-                            class="w-full pl-9 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-800 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                        >
-                        <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    </div>
-
-                    <!-- Category Filter Dropdown -->
-                    <select 
-                        wire:model.live="categoryFilter" 
-                        class="w-full sm:w-48 py-2 px-3 bg-white border border-gray-300 rounded-lg text-xs text-gray-800 focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                    >
-                        <option value="">Semua Kategori</option>
-                        @foreach ($categories as $cat)
-                            <option value="{{ $cat->id }}">{{ $cat->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <button 
-                    wire:click="openModal" 
-                    class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition"
-                >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    <span>Tambah Menu Baru</span>
-                </button>
-            </div>
-
-            <!-- Table Menu -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-gray-600">
-                    <thead class="bg-gray-100 text-gray-700 font-semibold uppercase tracking-wider border-b border-gray-200">
-                        <tr>
-                            <th class="px-6 py-3.5">Foto</th>
-                            <th class="px-6 py-3.5">Nama Menu</th>
-                            <th class="px-6 py-3.5">Kategori</th>
-                            <th class="px-6 py-3.5">Harga</th>
-                            <th class="px-6 py-3.5">Isi Paket</th>
-                            <th class="px-6 py-3.5 text-right">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        @forelse ($menus as $menu)
-                            <tr class="hover:bg-gray-50/80 transition">
-                                <td class="px-6 py-3">
-                                    @if ($menu->foto)
-                                        <img src="{{ asset('storage/' . $menu->foto) }}" alt="{{ $menu->nama }}" class="w-12 h-12 object-cover rounded-lg border border-gray-200">
-                                    @else
-                                        <div class="w-12 h-12 bg-gray-100 rounded-lg border border-gray-200 flex items-center justify-center text-gray-400 text-[10px]">No Photo</div>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 font-semibold text-gray-900">
-                                    <div>{{ $menu->nama }}</div>
-                                    <div class="text-[10px] text-gray-400 font-normal font-mono">{{ $menu->slug }}</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100 text-stone-800 border border-stone-200">
-                                        {{ $menu->category->nama }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 font-bold text-amber-600">
-                                    {{ $menu->formatted_harga }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if (!empty($menu->isi_paket))
-                                        <span class="text-[11px] text-gray-500 font-medium">{{ count($menu->isi_paket) }} Item Komponen</span>
-                                    @else
-                                        <span class="text-[11px] text-gray-400 font-light">-</span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 text-right space-x-2">
-                                    <button wire:click="edit({{ $menu->id }})" class="text-indigo-600 hover:text-indigo-900 font-medium transition">Edit</button>
-                                    <button 
-                                        onclick="confirm('Yakin ingin menghapus menu ini?') || event.stopImmediatePropagation()" 
-                                        wire:click="delete({{ $menu->id }})" 
-                                        class="text-rose-600 hover:text-rose-900 font-medium transition"
-                                    >Hapus</button>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="px-6 py-8 text-center text-gray-400">Belum ada data menu kuliner.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="p-4 border-t border-gray-200">
-                {{ $menus->links() }}
-            </div>
+            <button
+                @click="show = false"
+                class="text-emerald-400 hover:text-emerald-200"
+            >
+                &times;
+            </button>
         </div>
+    @endif
+
+
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-800 pb-5">
+
+        <div>
+            <span class="text-amber-500 font-medium text-xs tracking-widest uppercase">
+                Panel Admin
+            </span>
+
+            <h1 class="text-2xl sm:text-3xl font-serif font-bold text-stone-100 mt-1">
+                Kelola Menu Kuliner
+            </h1>
+
+            <p class="text-xs sm:text-sm text-stone-400 mt-1">
+                Atur daftar hidangan, harga, kategori, dan foto menu Lembah Desa
+            </p>
+        </div>
+
+        <button
+            wire:click="openModal"
+            class="bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition-colors flex items-center justify-center gap-2 self-start md:self-auto"
+        >
+            <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                />
+            </svg>
+
+            <span>Tambah Menu Baru</span>
+        </button>
+
     </div>
 
-    <!-- Modal Form Create / Edit -->
+
+    <!-- Search & Filter -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+        <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+
+            <!-- Search -->
+            <div class="relative w-full max-w-xs">
+
+                <input
+                    type="text"
+                    wire:model.live.debounce.300ms="search"
+                    placeholder="Cari nama menu..."
+                    class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-xs sm:text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-amber-500 placeholder-stone-500 transition-colors"
+                >
+
+                <svg
+                    class="w-4 h-4 text-stone-500 absolute left-3 top-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    />
+                </svg>
+
+            </div>
+
+
+            <!-- Category Filter -->
+            <select
+                wire:model.live="categoryFilter"
+                class="w-full sm:w-52 bg-stone-900 border border-stone-800 text-stone-200 text-xs sm:text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-amber-500 transition-colors"
+            >
+                <option value="">Semua Kategori</option>
+
+                @foreach ($categories as $cat)
+                    <option value="{{ $cat->id }}">
+                        {{ $cat->nama }}
+                    </option>
+                @endforeach
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- Table Container -->
+    <div class="bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden shadow-xl">
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left border-collapse">
+
+                <!-- Table Header -->
+                <thead>
+                    <tr class="bg-stone-950/60 border-b border-stone-800 text-stone-400 text-xs uppercase tracking-wider">
+
+                        <th class="py-4 px-6 w-20">
+                            Foto
+                        </th>
+
+                        <th class="py-4 px-6">
+                            Nama Menu
+                        </th>
+
+                        <th class="py-4 px-6">
+                            Kategori
+                        </th>
+
+                        <th class="py-4 px-6">
+                            Harga
+                        </th>
+
+                        <th class="py-4 px-6">
+                            Isi Paket
+                        </th>
+
+                        <th class="py-4 px-6 text-right">
+                            Aksi
+                        </th>
+
+                    </tr>
+                </thead>
+
+
+                <!-- Table Body -->
+                <tbody class="divide-y divide-stone-800/60 text-xs sm:text-sm">
+
+                    @forelse ($menus as $menu)
+
+                        <tr class="hover:bg-stone-800/30 transition-colors">
+
+                            <!-- Foto -->
+                            <td class="py-4 px-6">
+
+                                @if ($menu->foto)
+
+                                    <img
+                                        src="{{ asset('storage/' . $menu->foto) }}"
+                                        alt="{{ $menu->nama }}"
+                                        class="w-12 h-12 object-cover rounded-xl border border-stone-800"
+                                    >
+
+                                @else
+
+                                    <div class="w-12 h-12 bg-stone-950 rounded-xl border border-dashed border-stone-800 flex items-center justify-center text-stone-600">
+
+                                        <svg
+                                            class="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="1.5"
+                                                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                                            />
+                                        </svg>
+
+                                    </div>
+
+                                @endif
+
+                            </td>
+
+
+                            <!-- Nama Menu -->
+                            <td class="py-4 px-6">
+
+                                <p class="font-bold text-stone-100 max-w-xs sm:max-w-sm">
+                                    {{ $menu->nama }}
+                                </p>
+
+                                <p class="text-stone-500 text-[11px] font-mono mt-0.5">
+                                    {{ $menu->slug }}
+                                </p>
+
+                            </td>
+
+
+                            <!-- Kategori -->
+                            <td class="py-4 px-6">
+
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-950 border border-stone-700 text-stone-300">
+                                    {{ $menu->category->nama }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Harga -->
+                            <td class="py-4 px-6 text-stone-300 font-medium whitespace-nowrap">
+
+                                <span class="text-amber-500/90 font-semibold">
+                                    {{ $menu->formatted_harga }}
+                                </span>
+
+                            </td>
+
+
+                            <!-- Isi Paket -->
+                            <td class="py-4 px-6">
+
+                                @if (!empty($menu->isi_paket))
+
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-950/60 border border-amber-800/50 text-amber-400">
+
+                                        <svg
+                                            class="w-3.5 h-3.5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                                            />
+                                        </svg>
+
+                                        {{ count($menu->isi_paket) }} Item
+
+                                    </span>
+
+                                @else
+
+                                    <span class="text-stone-600">
+                                        -
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            <!-- Actions -->
+                            <td class="py-4 px-6 text-right">
+
+                                <div class="flex items-center justify-end gap-2">
+
+                                    <!-- Edit -->
+                                    <button
+                                        wire:click="edit({{ $menu->id }})"
+                                        class="p-2 rounded-lg bg-stone-800 hover:bg-stone-700 text-amber-500 transition-colors"
+                                        title="Edit Menu"
+                                    >
+                                        <svg
+                                            class="w-4 h-4"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                            />
+                                        </svg>
+                                    </button>
+
+
+                                    <!-- Delete -->
+                                    <button
+                                        onclick="confirm('Yakin ingin menghapus menu ini?') || event.stopImmediatePropagation()"
+                                        wire:click="delete({{ $menu->id }})"
+                                        class="p-2 rounded-lg bg-stone-800 hover:bg-rose-950 hover:text-rose-400 text-stone-400 transition-colors"
+                                        title="Hapus Menu"
+                                    >
+                                        <svg
+                                            class="w-4 h-4"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 01-1 1v3M4 7h16"
+                                            />
+                                        </svg>
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="py-12 text-center text-stone-500 text-sm"
+                            >
+                                Belum ada data menu kuliner.
+                                Klik tombol
+                                <strong>Tambah Menu Baru</strong>
+                                untuk menambahkan.
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- Pagination -->
+        @if ($menus->hasPages())
+
+            <div class="px-6 py-4 border-t border-stone-800 bg-stone-950/40">
+
+                {{ $menus->links() }}
+
+            </div>
+
+        @endif
+
+    </div>
+
+
+    <!-- Form Modal -->
     @if ($isModalOpen)
-        <div class="fixed inset-0 z-50 overflow-y-auto">
-            <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
-                <div class="fixed inset-0 bg-gray-900/60 transition-opacity" wire:click="closeModal"></div>
 
-                <div class="relative inline-block w-full max-w-2xl p-6 overflow-hidden text-left align-middle bg-white rounded-2xl shadow-xl transform transition-all z-10 my-8">
-                    <h3 class="text-lg font-bold leading-6 text-gray-900 border-b border-gray-100 pb-3">
-                        {{ $menuId ? 'Edit Menu Kuliner' : 'Tambah Menu Kuliner Baru' }}
-                    </h3>
+        <div
+            class="fixed inset-0 z-50 overflow-y-auto bg-stone-950/80 backdrop-blur-sm"
+        >
 
-                    <form wire:submit.prevent="save" class="mt-4 space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex min-h-full items-center justify-center p-4 sm:p-6">
+
+                <div class="bg-stone-900 border border-stone-800 rounded-2xl max-w-2xl w-full p-5 sm:p-8 space-y-5 shadow-2xl relative my-auto">
+
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between border-b border-stone-800 pb-4">
+
+                        <div>
+
+                            <h3 class="text-base sm:text-lg font-serif font-bold text-stone-100">
+                                {{ $menuId ? 'Edit Menu Kuliner' : 'Tambah Menu Baru' }}
+                            </h3>
+
+                            <p class="text-xs text-stone-400 mt-0.5">
+                                Lengkapi informasi menu sebelum menyimpannya.
+                            </p>
+
+                        </div>
+
+                        <button
+                            wire:click="closeModal"
+                            class="text-stone-400 hover:text-stone-200 text-2xl font-bold leading-none"
+                        >
+                            &times;
+                        </button>
+
+                    </div>
+
+
+                    <!-- Form -->
+                    <form
+                        wire:submit.prevent="save"
+                        class="space-y-4 text-xs sm:text-sm"
+                    >
+
+                        <!-- Kategori & Harga -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+
                             <!-- Kategori -->
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Kategori Menu</label>
-                                <select wire:model="category_id" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-900 focus:ring-2 focus:ring-amber-500">
-                                    <option value="">-- Pilih Kategori --</option>
+
+                                <label class="block text-stone-300 font-medium mb-1">
+                                    Kategori Menu
+                                </label>
+
+                                <select
+                                    wire:model="category_id"
+                                    class="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2.5 text-stone-100 focus:outline-none focus:border-amber-500"
+                                >
+                                    <option value="">
+                                        -- Pilih Kategori --
+                                    </option>
+
                                     @foreach ($categories as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->nama }}</option>
+                                        <option value="{{ $cat->id }}">
+                                            {{ $cat->nama }}
+                                        </option>
                                     @endforeach
                                 </select>
-                                @error('category_id') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+
+                                @error('category_id')
+                                    <span class="text-rose-500 text-xs mt-1 block">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
                             </div>
+
 
                             <!-- Harga -->
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Harga (Rp)</label>
-                                <input type="number" wire:model="harga" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-900 focus:ring-2 focus:ring-amber-500" placeholder="Contoh: 35000">
-                                @error('harga') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+
+                                <label class="block text-stone-300 font-medium mb-1">
+                                    Harga (Rp)
+                                </label>
+
+                                <div class="relative">
+
+                                    <span class="absolute left-3 top-2.5 text-stone-500">
+                                        Rp
+                                    </span>
+
+                                    <input
+                                        type="number"
+                                        wire:model="harga"
+                                        class="w-full bg-stone-950 border border-stone-800 rounded-xl pl-9 pr-4 py-2.5 text-stone-100 focus:outline-none focus:border-amber-500"
+                                        placeholder="35000"
+                                    >
+
+                                </div>
+
+                                @error('harga')
+                                    <span class="text-rose-500 text-xs mt-1 block">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
                             </div>
+
                         </div>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <!-- Nama Menu -->
+
+                        <!-- Nama & Slug -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Nama Menu</label>
-                                <input type="text" wire:model.live="nama" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-900 focus:ring-2 focus:ring-amber-500" placeholder="Contoh: Ayam Bakar Madu">
-                                @error('nama') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+
+                                <label class="block text-stone-300 font-medium mb-1">
+                                    Nama Menu
+                                </label>
+
+                                <input
+                                    type="text"
+                                    wire:model.live="nama"
+                                    class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-2.5 text-stone-100 focus:outline-none focus:border-amber-500"
+                                    placeholder="Contoh: Ayam Bakar Madu"
+                                >
+
+                                @error('nama')
+                                    <span class="text-rose-500 text-xs mt-1 block">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
                             </div>
 
-                            <!-- Slug URL -->
+
                             <div>
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Slug URL</label>
-                                <input type="text" wire:model="slug" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-xs text-gray-600 font-mono" readonly>
-                                @error('slug') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+
+                                <label class="block text-stone-300 font-medium mb-1">
+                                    Slug URL
+                                </label>
+
+                                <input
+                                    type="text"
+                                    wire:model="slug"
+                                    readonly
+                                    class="w-full bg-stone-950 border border-stone-800 rounded-xl px-4 py-2.5 text-stone-500 font-mono cursor-not-allowed"
+                                    placeholder="otomatis-terisi"
+                                >
+
+                                @error('slug')
+                                    <span class="text-rose-500 text-xs mt-1 block">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+
                             </div>
+
                         </div>
 
-                        <!-- Upload Foto Menu & Pratinjau -->
+
+                        <!-- Foto -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Foto Menu (Rasio 4:3 / 1:1)</label>
-                            <input type="file" wire:model="foto" accept="image/*" class="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100">
-                            @error('foto') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
 
-                            <!-- Preview Upload -->
-                            <div class="mt-2 flex items-center gap-4">
-                                @if ($foto)
-                                    <div>
-                                        <span class="text-[10px] text-gray-400 block mb-1">Pratinjau Foto Baru:</span>
-                                        <img src="{{ $foto->temporaryUrl() }}" class="w-20 h-20 object-cover rounded-lg border border-gray-300">
-                                    </div>
-                                @elseif ($existingFoto)
-                                    <div>
-                                        <span class="text-[10px] text-gray-400 block mb-1">Foto Saat Ini:</span>
-                                        <img src="{{ asset('storage/' . $existingFoto) }}" class="w-20 h-20 object-cover rounded-lg border border-gray-300">
-                                    </div>
-                                @endif
+                            <label class="block text-stone-300 font-medium mb-1">
+                                Foto Menu
+                            </label>
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="flex-1">
+
+                                    <input
+                                        type="file"
+                                        wire:model="foto"
+                                        accept="image/*"
+                                        class="w-full text-xs text-stone-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-stone-800 file:text-amber-400 hover:file:bg-stone-700 cursor-pointer border border-stone-800 rounded-xl bg-stone-950 p-1"
+                                    >
+
+                                    <p class="text-[10px] text-stone-500 mt-1">
+                                        JPG, PNG, WEBP — maksimal 2MB
+                                    </p>
+
+                                    @error('foto')
+                                        <span class="text-rose-500 text-xs mt-1 block">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+
+                                </div>
+
+
+                                <!-- Preview -->
+                                <div class="shrink-0">
+
+                                    @if ($foto)
+
+                                        <div class="relative">
+
+                                            <img
+                                                src="{{ $foto->temporaryUrl() }}"
+                                                class="w-16 h-16 object-cover rounded-xl border border-stone-700"
+                                            >
+
+                                            <span class="absolute -top-2 -right-2 bg-amber-500 text-stone-950 text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                                                Baru
+                                            </span>
+
+                                        </div>
+
+                                    @elseif ($existingFoto)
+
+                                        <div class="relative">
+
+                                            <img
+                                                src="{{ asset('storage/' . $existingFoto) }}"
+                                                class="w-16 h-16 object-cover rounded-xl border border-stone-700"
+                                            >
+
+                                            <span class="absolute -top-2 -right-2 bg-stone-700 text-stone-200 text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                                                Saat ini
+                                            </span>
+
+                                        </div>
+
+                                    @endif
+
+                                </div>
+
                             </div>
+
                         </div>
+
 
                         <!-- Deskripsi -->
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Deskripsi Ringkas (Opsional)</label>
-                            <textarea wire:model="deskripsi" rows="3" class="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-xs text-gray-900 focus:ring-2 focus:ring-amber-500" placeholder="Jelaskan cita rasa dan keunggulan menu ini..."></textarea>
-                            @error('deskripsi') <span class="text-xs text-rose-500 mt-1 block">{{ $message }}</span> @enderror
+
+                            <label class="block text-stone-300 font-medium mb-1">
+                                Deskripsi Ringkas
+                            </label>
+
+                            <textarea
+                                wire:model="deskripsi"
+                                rows="3"
+                                class="w-full bg-stone-950 border border-stone-800 rounded-xl p-3 sm:p-4 text-stone-100 focus:outline-none focus:border-amber-500 resize-none"
+                                placeholder="Jelaskan cita rasa dan keunggulan menu ini..."
+                            ></textarea>
+
+                            @error('deskripsi')
+                                <span class="text-rose-500 text-xs mt-1 block">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+
                         </div>
 
-                        <!-- Input Dinamis: Isi Paket -->
-                        <div class="border-t border-gray-100 pt-3">
+
+                        <!-- Isi Paket -->
+                        <div class="border-t border-stone-800 pt-4">
+
                             <div class="flex items-center justify-between mb-2">
-                                <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider">Komponen / Isi Paket (Opsional)</label>
-                                <button type="button" wire:click="addIsiPaket" class="text-xs text-amber-600 font-semibold hover:underline">+ Tambah Item</button>
+
+                                <label class="block text-stone-300 font-medium">
+                                    Komponen / Isi Paket
+                                </label>
+
+                                <button
+                                    type="button"
+                                    wire:click="addIsiPaket"
+                                    class="inline-flex items-center gap-1 text-xs text-amber-400 font-semibold hover:text-amber-300 transition"
+                                >
+                                    <svg
+                                        class="w-3.5 h-3.5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 4v16m8-8H4"
+                                        />
+                                    </svg>
+
+                                    <span>Tambah Item</span>
+                                </button>
+
                             </div>
-                            
-                            <div class="space-y-2 max-h-36 overflow-y-auto p-1">
+
+
+                            <div class="space-y-2 max-h-40 overflow-y-auto pr-1">
+
                                 @foreach ($isi_paket as $index => $item)
+
                                     <div class="flex items-center gap-2">
-                                        <input type="text" wire:model="isi_paket.{{ $index }}" class="w-full px-3 py-1.5 bg-white border border-gray-300 rounded-lg text-xs text-gray-900 focus:ring-2 focus:ring-amber-500" placeholder="Contoh: Nasi Putih / Sambal Terasi">
+
+                                        <input
+                                            type="text"
+                                            wire:model="isi_paket.{{ $index }}"
+                                            class="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2.5 text-stone-100 placeholder-stone-600 focus:outline-none focus:border-amber-500"
+                                            placeholder="Contoh: Nasi Putih / Sambal Terasi"
+                                        >
+
                                         @if (count($isi_paket) > 1)
-                                            <button type="button" wire:click="removeIsiPaket({{ $index }})" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+
+                                            <button
+                                                type="button"
+                                                wire:click="removeIsiPaket({{ $index }})"
+                                                class="p-2 text-stone-500 hover:text-rose-400 hover:bg-rose-950/50 rounded-lg transition shrink-0"
+                                                title="Hapus Baris"
+                                            >
+                                                <svg
+                                                    class="w-4 h-4"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                                    />
+                                                </svg>
                                             </button>
+
                                         @endif
+
                                     </div>
+
                                 @endforeach
+
                             </div>
+
                         </div>
 
-                        <!-- Footer Actions -->
-                        <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-2">
-                            <button type="button" wire:click="closeModal" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-lg transition">Batal</button>
-                            <button type="submit" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-lg shadow-sm transition">
-                                {{ $menuId ? 'Simpan Perubahan' : 'Tambah Menu' }}
+
+                        <!-- Actions -->
+                        <div class="flex items-center justify-end gap-3 pt-4 border-t border-stone-800">
+
+                            <button
+                                type="button"
+                                wire:click="closeModal"
+                                class="px-4 py-2.5 rounded-xl border border-stone-700 text-stone-300 hover:bg-stone-800 transition-colors"
+                            >
+                                Batal
                             </button>
+
+                            <button
+                                type="submit"
+                                class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold transition-colors flex items-center gap-2"
+                            >
+                                <span wire:loading.remove>
+                                    {{ $menuId ? 'Simpan Perubahan' : 'Tambah Menu' }}
+                                </span>
+
+                                <span wire:loading>
+                                    Memproses...
+                                </span>
+                            </button>
+
                         </div>
+
                     </form>
+
                 </div>
+
             </div>
+
         </div>
+
     @endif
+
 </div>

@@ -179,10 +179,6 @@
                     Kuliner Khas Pedesaan
                 </h3>
 
-                <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed">
-                    Nikmati olahan gurame bakar, ayam kampung olahan bumbu desa, dan aneka sambal tradisional bertepi sawah.
-                </p>
-
             </div>
 
         </div>
@@ -214,10 +210,6 @@
                     Spot Foto & Senja
                 </h3>
 
-                <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed">
-                    Area lanskap yang dirancang alami untuk menangkap momen keemasan matahari terbenam tanpa halangan.
-                </p>
-
             </div>
 
         </div>
@@ -245,12 +237,8 @@
                 </div>
 
                 <h3 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 mb-2 leading-tight">
-                    Gazebo & Area Acara
+                    Gazebo & Pemandangan Sawah
                 </h3>
-
-                <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed">
-                    Kapasitas fleksibel untuk kumpul keluarga, Reuni, hingga acara korporat dalam suasana privat yang asri.
-                </p>
 
             </div>
 
@@ -316,7 +304,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
 
-                    <span>Fasilitas musala bersih, toilet, dan area bermain anak</span>
+                    <span>Fasilitas mushola bersih, toilet, dan area bermain anak</span>
                 </li>
 
             </ul>
