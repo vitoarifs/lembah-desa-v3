@@ -63,9 +63,6 @@ class LoginForm extends Form
         Auth::login($user);
 
         RateLimiter::clear($this->throttleKey());
-
-        // Regenerasi session setelah login
-        session()->regenerate();
     }
 
     /**

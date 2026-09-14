@@ -38,7 +38,7 @@ new class extends Component
     <div class="flex h-16 shrink-0 items-center border-b border-gray-200 px-6">
 
         <a
-            href="{{ route('dashboard') }}"
+            href="{{ route('admin.dashboard') }}"
             wire:navigate
             class="flex min-w-0 items-center gap-3"
         >
@@ -88,7 +88,7 @@ new class extends Component
 
             <!-- Dashboard -->
             <a
-                href="{{ route('dashboard') }}"
+                href="{{ route('admin.dashboard') }}"
                 wire:navigate
                 @click="sidebarOpen = false"
                 class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition

@@ -6,12 +6,10 @@ use Livewire\Volt\Volt;
 // Akses ke halaman login melalui /gerbang-admin
 
 Route::get('/gerbang-admin', function () {
-    // Berikan izin akses ke form login melalui session
-    session(['buka_pintu_login' => true]);
-    
-    // Alihkan langsung ke halaman login asli
+    session()->put('buka_pintu_login', true);
+
     return redirect()->route('login');
-});
+})->name('gerbang-admin');
 
 
 // Rute Publik (Akses Tanpa Login)
@@ -25,6 +23,8 @@ Route::get('/kuliner/{category:slug}/{menu:slug}', \App\Livewire\Guest\Kuliner\K
 Route::get('/event', \App\Livewire\Guest\Event\Index::class)->name('event.index');
 Route::get('/kontak-kami', \App\Livewire\Guest\KontakKami\Index::class)->name('kontak-kami.index');
 
+// -----------------------------------------------------------------------------------------------------------
+
 
 // Rute untuk menampilkan pesan kontak di halaman admin, HAPUS ROUTE INI DI MASA DEPAN JIKA SUDAH TIDAK DIPERLUKAN
 Route::get('/emails', \App\Livewire\Mail\ContactMessages::class)->name('emails');
@@ -37,10 +37,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/kelola-content-manager', App\Livewire\Admin\Account\Index::class)->name('kelola-content-manager.index');
 });
 
+
+// -----------------------------------------------------------------------------------------------------------
+
+
 Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Route::get('/dashboard', \App\Livewire\Admin\Dashboard\Index::class)->name('dashboard.index');
-    
+    // Rute untuk Dashboard
+    Route::get('/dashboard', App\Livewire\Admin\Dashboard::class)->name('dashboard');
 
     // Rute untuk manajemen kuliner
     Route::get('/kuliner/kategori', App\Livewire\Admin\KulinerCategoryIndex::class)->name('kuliner.kategori.index');
@@ -52,18 +56,15 @@ Route::middleware(['auth', 'role:admin,content_manager'])->prefix('admin')->name
     Route::get('/pesan-masuk', App\Livewire\Admin\ContactMessages\Index::class)->name('contact-messages.index');
 });
 
+
+// -----------------------------------------------------------------------------------------------------------
+
+
+// Form Register hanya untuk Admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Volt::route('register', 'pages.auth.register')
         ->name('register');
 });
-
-
-
-// Route::view('/', 'welcome');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
