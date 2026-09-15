@@ -94,175 +94,152 @@ class KulinerMenuIndex extends Component
         $this->resetValidation();
     }
 
-    public function save()
-    {
-        $validated = $this->validate([
-            'category_id' => [
-                'required',
-                'exists:categories,id',
-            ],
+public function save()
+{
+    $validated = $this->validate([
+        'category_id' => [
+            'required',
+            'exists:categories,id',
+        ],
 
-            'nama' => [
-                'required',
-                'string',
-                'max:255',
-            ],
+        'nama' => [
+            'required',
+            'string',
+            'max:255',
+        ],
 
-            'slug' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique('menus', 'slug')->ignore($this->menuId),
-            ],
+        'slug' => [
+            'required',
+            'string',
+            'max:255',
+            Rule::unique('menus', 'slug')->ignore($this->menuId),
+        ],
 
-            'harga' => [
-                'required',
-                'numeric',
-                'min:0',
-            ],
+        'harga' => [
+            'required',
+            'numeric',
+            'min:0',
+        ],
 
-            'foto' => [
-                $this->menuId ? 'nullable' : 'required',
-                'image',
-                'max:2048',
-            ],
+        'foto' => [
+            $this->menuId ? 'nullable' : 'required',
+            'image',
+            'max:2048',
+        ],
 
-            'deskripsi' => [
-                'nullable',
-                'string',
-            ],
-        ]);
+        'deskripsi' => [
+            'nullable',
+            'string',
+        ],
+    ]);
 
-        // Bersihkan array isi_paket dari string kosong
-        $cleanIsiPaket = array_values(
-            array_filter(
-                $this->isi_paket,
-                fn ($item) => !empty(trim($item))
-            )
+    $cleanIsiPaket = array_values(
+        array_filter(
+            $this->isi_paket,
+            fn ($item) => !empty(trim($item))
+        )
+    );
+
+    $oldFotoPath = $this->existingFoto;
+    $fotoPath = $oldFotoPath;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Upload & Resize Foto
+    |--------------------------------------------------------------------------
+    */
+
+    if ($this->foto) {
+
+        $filename = Str::uuid() . '.webp';
+
+        $largePath = 'menus/' . $filename;
+        $smallPath = 'menus/400/' . $filename;
+
+        // Baca gambar
+        $manager = new ImageManager(new Driver());
+
+        $image = $manager->read(
+            $this->foto->getRealPath()
         );
 
-        $fotoPath = $this->existingFoto;
+        // Versi maksimal 1000px
+        $largeImage = $image->scaleDown(
+            width: 1000
+        );
 
-        /*
-        |--------------------------------------------------------------------------
-        | Upload & Resize Foto
-        |--------------------------------------------------------------------------
-        */
+        // Versi maksimal 400px
+        $smallImage = $image->scaleDown(
+            width: 400
+        );
 
-        if ($this->foto) {
+        // Simpan versi 1000px
+        Storage::disk('public')->put(
+            $largePath,
+            $largeImage->toWebp(85)
+        );
 
-            // Hapus foto lama jika sedang memperbarui
-            if (
-                $this->existingFoto &&
-                Storage::disk('public')->exists($this->existingFoto)
-            ) {
-                Storage::disk('public')->delete($this->existingFoto);
-            }
+        // Simpan versi 400px
+        Storage::disk('public')->put(
+            $smallPath,
+            $smallImage->toWebp(85)
+        );
 
-            /*
-            |--------------------------------------------------------------------------
-            | Nama file
-            |--------------------------------------------------------------------------
-            */
+        // Path yang disimpan ke database
+        $fotoPath = $largePath;
+    }
 
-            $filename = Str::uuid() . '.jpg';
+    /*
+    |--------------------------------------------------------------------------
+    | Simpan Menu
+    |--------------------------------------------------------------------------
+    */
 
-            $largePath = 'menus/' . $filename;
-            $smallPath = 'menus/400/' . $filename;
+    Menu::updateOrCreate(
+        ['id' => $this->menuId],
+        [
+            'category_id' => $this->category_id,
+            'nama' => $this->nama,
+            'slug' => $this->slug,
+            'harga' => $this->harga,
+            'foto' => $fotoPath,
+            'deskripsi' => $this->deskripsi ?: null,
+            'isi_paket' => !empty($cleanIsiPaket)
+                ? $cleanIsiPaket
+                : null,
+        ]
+    );
 
-            /*
-            |--------------------------------------------------------------------------
-            | Baca gambar menggunakan GD
-            |--------------------------------------------------------------------------
-            */
+    /*
+    |--------------------------------------------------------------------------
+    | Hapus Foto Lama Setelah Foto Baru Berhasil Disimpan
+    |--------------------------------------------------------------------------
+    */
 
-            $manager = new ImageManager(
-                new Driver()
-            );
+    if ($this->foto && $oldFotoPath) {
 
-            $image = $manager->read(
-                $this->foto->getRealPath()
-            );
-
-            /*
-            |--------------------------------------------------------------------------
-            | Buat versi 1000px
-            |--------------------------------------------------------------------------
-            |
-            | scaleDown() menjaga rasio asli.
-            | Foto yang lebih kecil dari 1000px tidak akan diperbesar.
-            |
-            */
-
-            $largeImage = $image->scaleDown(
-                width: 1000
-            );
-
-            /*
-            |--------------------------------------------------------------------------
-            | Buat versi 400px
-            |--------------------------------------------------------------------------
-            */
-
-            $smallImage = $image->scaleDown(
-                width: 400
-            );
-
-            /*
-            |--------------------------------------------------------------------------
-            | Simpan kedua ukuran
-            |--------------------------------------------------------------------------
-            */
-
-            Storage::disk('public')->put(
-                $largePath,
-                $largeImage->toJpeg(85)
-            );
-
-            Storage::disk('public')->put(
-                $smallPath,
-                $smallImage->toJpeg(85)
-            );
-
-            /*
-            |--------------------------------------------------------------------------
-            | Database hanya menyimpan path versi 1000px
-            |--------------------------------------------------------------------------
-            */
-
-            $fotoPath = $largePath;
+        // Hapus versi 1000px lama
+        if (Storage::disk('public')->exists($oldFotoPath)) {
+            Storage::disk('public')->delete($oldFotoPath);
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Simpan Menu
-        |--------------------------------------------------------------------------
-        */
+        // Hapus versi 400px lama
+        $oldSmallPath = 'menus/400/' . basename($oldFotoPath);
 
-        Menu::updateOrCreate(
-            ['id' => $this->menuId],
-            [
-                'category_id' => $this->category_id,
-                'nama' => $this->nama,
-                'slug' => $this->slug,
-                'harga' => $this->harga,
-                'foto' => $fotoPath,
-                'deskripsi' => $this->deskripsi ?: null,
-                'isi_paket' => !empty($cleanIsiPaket)
-                    ? $cleanIsiPaket
-                    : null,
-            ]
-        );
-
-        session()->flash(
-            'message',
-            $this->menuId
-                ? 'Menu kuliner berhasil diperbarui!'
-                : 'Menu kuliner baru berhasil ditambahkan!'
-        );
-
-        $this->closeModal();
+        if (Storage::disk('public')->exists($oldSmallPath)) {
+            Storage::disk('public')->delete($oldSmallPath);
+        }
     }
+
+    session()->flash(
+        'message',
+        $this->menuId
+            ? 'Menu kuliner berhasil diperbarui!'
+            : 'Menu kuliner baru berhasil ditambahkan!'
+    );
+
+    $this->closeModal();
+}
 
     public function edit($id)
     {

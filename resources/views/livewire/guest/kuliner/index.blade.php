@@ -132,14 +132,9 @@
                                         @if ($item->foto)
 
                                             <img
-                                                src="{{ Storage::url($item->foto) }}"
-                                                srcset="
-                                                    {{ Storage::url('menus/400/' . basename($item->foto)) }} 400w,
-                                                    {{ Storage::url($item->foto) }} 1000w
-                                                "
-                                                sizes="(min-width: 1024px) 270px, (min-width: 640px) 250px, 220px"
-                                                width="1000"
-                                                height="750"
+                                                src="{{ Storage::url('menus/400/' . basename($item->foto)) }}"
+                                                width="400"
+                                                height="300"
                                                 alt="{{ $item->nama }}"
                                                 loading="lazy"
                                                 decoding="async"
@@ -162,10 +157,10 @@
                                                         stroke-linejoin="round"
                                                         stroke-width="1.5"
                                                         d="M4 16l4.586-4.586a2 2 0 011.414-.586
-                                                           2 2 0 011.414.586L16 16m-2-2l1.586-1.586
-                                                           a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14
-                                                           a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14
-                                                           a1 1 0 001 1z"
+                                                        2 2 0 011.414.586L16 16m-2-2l1.586-1.586
+                                                        a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14
+                                                        a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14
+                                                        a1 1 0 001 1z"
                                                     />
                                                 </svg>
 

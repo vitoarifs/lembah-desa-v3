@@ -15,8 +15,16 @@ new class extends Component
     <aside class="fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-stone-800 bg-stone-950 transition-transform duration-200" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'">
         <div class="flex h-16 shrink-0 items-center border-b border-stone-800 px-5">
             <a href="{{ route('admin.dashboard') }}" wire:navigate class="flex min-w-0 items-center gap-3">
-                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20">
-                    <x-application-logo class="h-6 w-auto fill-current text-amber-500" />
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden">
+                    @if ($siteIdentity?->logo)
+                        <img
+                            src="{{ asset('storage/' . $siteIdentity->logo) }}"
+                            alt="{{ $siteIdentity->nama_website ?? 'Logo' }}"
+                            class="h-full w-full object-contain"
+                        >
+                    @else
+                        <x-application-logo class="h-6 w-auto fill-current text-amber-500" />
+                    @endif
                 </div>
                 <div class="min-w-0">
                     <span class="block truncate text-sm font-bold text-stone-100">{{ config('app.name', 'Lembah Desa') }}</span>

@@ -40,13 +40,10 @@
                     <div class="relative w-28 h-28 shrink-0 bg-stone-950 rounded-xl overflow-hidden border border-stone-800">
                         @if ($menu->foto)
                             <img
-                                src="{{ Storage::url($menu->foto) }}"
-                                srcset="
-                                    {{ Storage::url('menus/400/' . basename($menu->foto)) }} 400w,
-                                    {{ Storage::url($menu->foto) }} 1000w
-                                "
-                                sizes="112px"
+                                src="{{ Storage::url('menus/400/' . basename($menu->foto)) }}"
                                 alt="{{ $menu->nama }}"
+                                width="400"
+                                height="300"
                                 loading="lazy"
                                 decoding="async"
                                 class="w-full h-full object-cover"
@@ -80,11 +77,24 @@
 
                 <!-- DESKTOP -->
                 <div class="hidden md:block relative aspect-square bg-stone-950 rounded-xl overflow-hidden border border-stone-800">
-                    <img
-                        src="{{ asset('storage/' . $menu->foto) }}"
-                        alt="{{ $menu->nama }}"
-                        class="w-full h-full object-cover"
-                    >
+                    @if ($menu->foto)
+                        <img
+                            src="{{ Storage::url('menus/400/' . basename($menu->foto)) }}"
+                            srcset="
+                                {{ Storage::url('menus/400/' . basename($menu->foto)) }} 400w,
+                                {{ Storage::url($menu->foto) }} 1000w
+                            "
+                            sizes="(min-width: 1024px) 40vw, 400px"
+                            alt="{{ $menu->nama }}"
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover"
+                        >
+                    @else
+                        <div class="w-full h-full flex items-center justify-center text-stone-600 text-xs">
+                            Tidak ada foto
+                        </div>
+                    @endif
                 </div>
 
             </div>

@@ -24,7 +24,18 @@
                     </svg>
                 </button>
                 <div class="ml-3 flex min-w-0 items-center gap-2">
-                    <x-application-logo class="h-7 w-auto shrink-0 fill-current text-amber-500" />
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden">
+                    @if ($siteIdentity?->logo)
+                        <img
+                            src="{{ asset('storage/' . $siteIdentity->logo) }}"
+                            alt="{{ $siteIdentity->nama_website ?? 'Logo' }}"
+                            class="h-full w-full object-contain"
+                        >
+                    @else
+                        <x-application-logo class="h-6 w-auto fill-current text-amber-500" />
+                    @endif
+                </div>
+
                     <span class="truncate text-sm font-semibold text-stone-100">
                         {{ config('app.name', 'Lembah Desa') }}
                     </span>
