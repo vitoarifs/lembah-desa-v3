@@ -72,7 +72,7 @@
 
                 <input
                     type="text"
-                    wire:model.live.debounce.300ms="search"
+                    wire:model.live.debounce.500ms="search"
                     placeholder="Cari nama menu..."
                     class="w-full bg-stone-900 border border-stone-800 text-stone-200 text-xs sm:text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-amber-500 placeholder-stone-500 transition-colors"
                 >

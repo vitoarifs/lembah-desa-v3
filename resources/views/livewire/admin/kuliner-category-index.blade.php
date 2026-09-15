@@ -26,7 +26,7 @@
     <!-- Search -->
     <div class="flex flex-col sm:flex-row gap-3">
         <div class="relative w-full sm:w-80">
-            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari nama kategori..." class="w-full pl-9 pr-4 py-2.5 bg-stone-900 border border-stone-800 rounded-xl text-xs sm:text-sm text-stone-100 placeholder-stone-600 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-600 outline-none transition">
+            <input type="text" wire:model.live.debounce.500ms="search" placeholder="Cari nama kategori..." class="w-full pl-9 pr-4 py-2.5 bg-stone-900 border border-stone-800 rounded-xl text-xs sm:text-sm text-stone-100 placeholder-stone-600 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-600 outline-none transition">
             <svg wire:loading.remove wire:target="search" class="w-4 h-4 text-stone-600 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
