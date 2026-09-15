@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 #[Layout('layouts.app', ['title' => 'Identitas Website'])]
 class Index extends Component
@@ -92,27 +94,67 @@ class Index extends Component
         $logoPath = $this->existingLogo;
 
         if ($this->logo) {
+
+            $manager = new ImageManager(new Driver());
+
+            $image = $manager->read(
+                $this->logo->getRealPath()
+            );
+
+            $image->scaleDown(
+                width: 256,
+                height: 256
+            );
+
+            $filename = 'logo-' . uniqid() . '.webp';
+
+            $logoPath = 'site-identity/' . $filename;
+
+            Storage::disk('public')->put(
+                $logoPath,
+                $image->toWebp(85)
+            );
+
+            // Hapus logo lama setelah logo baru berhasil dibuat
             if (
                 $this->existingLogo &&
                 Storage::disk('public')->exists($this->existingLogo)
             ) {
                 Storage::disk('public')->delete($this->existingLogo);
             }
-
-            $logoPath = $this->logo->store('site-identity', 'public');
         }
 
         $faviconPath = $this->existingFavicon;
 
         if ($this->favicon) {
+
+            $manager = new ImageManager(new Driver());
+
+            $image = $manager->read(
+                $this->favicon->getRealPath()
+            );
+
+            $image->scaleDown(
+                width: 64,
+                height: 64
+            );
+
+            $filename = 'favicon-' . uniqid() . '.png';
+
+            $faviconPath = 'site-identity/' . $filename;
+
+            Storage::disk('public')->put(
+                $faviconPath,
+                $image->toPng()
+            );
+
+            // Hapus favicon lama
             if (
                 $this->existingFavicon &&
                 Storage::disk('public')->exists($this->existingFavicon)
             ) {
                 Storage::disk('public')->delete($this->existingFavicon);
             }
-
-            $faviconPath = $this->favicon->store('site-identity', 'public');
         }
 
         SiteIdentity::updateOrCreate(

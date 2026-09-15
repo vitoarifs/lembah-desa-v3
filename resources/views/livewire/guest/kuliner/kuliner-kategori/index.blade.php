@@ -75,70 +75,65 @@
 
 
         <!-- Grid Menu Card -->
-<div class="grid grid-cols-[repeat(auto-fit,220px)] sm:grid-cols-[repeat(auto-fit,250px)] lg:grid-cols-[repeat(auto-fit,270px)] gap-4 sm:gap-5 lg:gap-6 justify-center">
+        <div class="grid grid-cols-[repeat(auto-fit,220px)] sm:grid-cols-[repeat(auto-fit,250px)] lg:grid-cols-[repeat(auto-fit,270px)] gap-4 sm:gap-5 lg:gap-6 justify-center">
 
-    @forelse ($menus as $item)
-        <article class="group w-[220px] sm:w-[250px] lg:w-[270px]">
+            @forelse ($menus as $item)
+                <article class="group w-[220px] sm:w-[250px] lg:w-[270px]">
 
-            <a
-                href="{{ route('kuliner.category.detail.index', ['category' => $category->slug, 'menu' => $item->slug]) }}"
-                class="block bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden hover:border-stone-700 transition-colors"
-            >
+                    <a
+                        href="{{ route('kuliner.category.detail.index', ['category' => $category->slug, 'menu' => $item->slug]) }}"
+                        class="block bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden hover:border-stone-700 transition-colors duration-200"
+                    >
 
-                <!-- Foto -->
-                <div class="relative aspect-[4/3] bg-stone-950 overflow-hidden">
+                        {{-- Container Foto --}}
+                        <div class="relative aspect-[4/3] bg-stone-950 overflow-hidden">
 
-                    @if ($item->foto)
-                        <img
-                            src="{{ Storage::url($item->foto) }}"
-                            srcset="
-                                {{ Storage::url('menus/400/' . basename($item->foto)) }} 400w,
-                                {{ Storage::url($item->foto) }} 1000w
-                            "
-                            sizes="(min-width: 1024px) 270px, (min-width: 640px) 250px, 220px"
-                            width="1000"
-                            height="750"
-                            alt="{{ $item->nama }}"
-                            loading="lazy"
-                            decoding="async"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        >
-                    @else
-                        <div class="w-full h-full flex items-center justify-center text-stone-600">
-                            Tidak ada foto
+                            @if ($item->foto)
+                                <img
+                                    src="{{ Storage::url('menus/400/' . basename($item->foto)) }}"
+                                    alt="{{ $item->nama }}"
+                                    width="400"
+                                    height="300"
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
+                                >
+                            @else
+                                <div class="w-full h-full flex flex-col items-center justify-center text-stone-600 bg-stone-900">
+                                    <svg class="w-8 h-8 mb-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 011.414.586L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                                    </svg>
+                                    <span class="text-xs">Foto belum tersedia</span>
+                                </div>
+                            @endif
+
                         </div>
-                    @endif
 
-                </div>
+                        {{-- Informasi Menu --}}
+                        <div class="p-4 sm:p-5 space-y-2">
 
-                <!-- Informasi -->
-                <div class="p-4 sm:p-5 space-y-2">
+                            <h2 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 leading-tight line-clamp-2 min-h-[3rem]">
+                                {{ $item->nama }}
+                            </h2>
 
-                    <h2 class="font-serif text-xl sm:text-[21px] lg:text-[22px] font-bold text-stone-100 leading-tight line-clamp-2">
-                        {{ $item->nama }}
-                    </h2>
+                            <p class="text-amber-500 font-semibold text-sm lg:text-[15px]">
+                                {{ $item->formatted_harga }}
+                            </p>
 
-                    <p class="text-amber-500 font-semibold text-sm lg:text-[15px]">
-                        {{ $item->formatted_harga }}
+                        </div>
+
+                    </a>
+
+                </article>
+            @empty
+                <div class="col-span-full py-16 text-center text-stone-500 border border-dashed border-stone-800 rounded-2xl">
+                    <p class="text-sm lg:text-[15px]">
+                        Belum ada menu yang tersedia untuk kategori ini.
                     </p>
-
                 </div>
+            @endforelse
 
-            </a>
-
-        </article>
-
-    @empty
-
-        <div class="col-span-full py-12 text-center text-stone-500">
-            <p class="text-sm lg:text-[15px]">
-                Belum ada menu yang tersedia untuk kategori ini.
-            </p>
         </div>
-
-    @endforelse
-
-</div>
     </div>
 
 </section>
