@@ -159,6 +159,7 @@
         </h2>
         <a
           href="{{ route('admin.contact-messages.index') }}"
+          wire:navigate
           class="text-xs text-amber-500 hover:text-amber-400 font-medium transition-colors"
         >
           Lihat Semua &rarr;
@@ -169,6 +170,7 @@
         @forelse ($recentMessages as $msg)
           <a
             href="{{ route('admin.contact-messages.index') }}"
+            wire:navigate
             class="block p-3.5 rounded-xl border border-stone-800/80 bg-stone-950/60 hover:bg-stone-800/40 transition-colors"
           >
             <div class="flex items-center justify-between">
@@ -206,6 +208,7 @@
       <div class="space-y-2.5 text-xs sm:text-sm">
         <a
           href="{{ route('admin.contact-messages.index') }}"
+          wire:navigate
           class="flex items-center justify-between p-3 rounded-xl bg-stone-950 border border-stone-800 hover:border-amber-600/40 text-stone-200 transition-colors group"
         >
           <div class="flex items-center gap-2.5">
@@ -230,6 +233,7 @@
         @if (Route::has('admin.identitas-website.index'))
           <a
             href="{{ route('admin.identitas-website.index') }}"
+            wire:navigate
             class="flex items-center justify-between p-3 rounded-xl bg-stone-950 border border-stone-800 hover:border-amber-600/40 text-stone-200 transition-colors group"
           >
             <div class="flex items-center gap-2.5">
@@ -255,6 +259,7 @@
         @if (auth()->user()->role === 'admin' && Route::has('admin.kelola-content-manager.index'))
           <a
             href="{{ route('admin.kelola-content-manager.index') }}"
+            wire:navigate
             class="flex items-center justify-between p-3 rounded-xl bg-stone-950 border border-stone-800 hover:border-amber-600/40 text-stone-200 transition-colors group"
           >
             <div class="flex items-center gap-2.5">

@@ -82,7 +82,6 @@
                 <div class="hidden md:block">
                     <a 
                         href="{{ route('kontak-kami.index') }}" 
-                       
                         class="inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all duration-300 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-full shadow-md shadow-orange-950/40 hover:shadow-lg focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-stone-950 active:scale-95"
                     >
                         Reservasi Sekarang
@@ -150,7 +149,6 @@
                     <a 
                         href="{{ route('kontak-kami.index') }}" 
                         @click="isOpen = false"
-                       
                         class="block w-full text-center px-4 py-3 text-base font-medium text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-xl shadow-md transition-all"
                     >
                         Reservasi Sekarang

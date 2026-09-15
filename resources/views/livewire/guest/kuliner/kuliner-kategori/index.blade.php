@@ -8,6 +8,7 @@
             {{-- Navigasi Kembali --}}
             <a
                 href="{{ route('kuliner.index') }}"
+                wire:navigate
                 class="inline-flex items-center gap-2
                        text-xs lg:text-[13px]
                        font-medium

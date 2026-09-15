@@ -5,6 +5,7 @@
         <div class="flex items-center gap-2 text-xs lg:text-[13px] text-stone-400">
             <a
                 href="{{ route('kuliner.index') }}"
+                wire:navigate
                 class="hover:text-amber-500 transition-colors"
             >
                 Kuliner
@@ -14,6 +15,7 @@
 
             <a
                 href="{{ route('kuliner.category.index', ['category' => $menu->category->slug]) }}"
+                wire:navigate
                 class="hover:text-amber-500 transition-colors"
             >
                 {{ $menu->category->nama }}

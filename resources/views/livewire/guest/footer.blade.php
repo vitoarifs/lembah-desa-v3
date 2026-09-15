@@ -150,6 +150,7 @@
                     <li>
                         <a
                             href="{{ route('home.index') }}"
+                            wire:navigate
                             class="text-stone-400 hover:text-amber-400 transition-colors duration-200"
                         >
                             Beranda
@@ -159,6 +160,7 @@
                     <li>
                         <a
                             href="{{ route('kuliner.index') }}"
+                            wire:navigate
                             class="text-stone-400 hover:text-amber-400 transition-colors duration-200"
                         >
                             Menu Populer
@@ -168,6 +170,7 @@
                     <li>
                         <a
                             href="{{ route('event.index') }}"
+                            wire:navigate
                             class="text-stone-400 hover:text-amber-400 transition-colors duration-200"
                         >
                             Event & Acara
