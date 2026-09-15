@@ -127,10 +127,39 @@
                                 >
 
                                     {{-- IMAGE --}}
-                                    <div class="relative aspect-[4/3] bg-stone-900 overflow-hidden">
-
+                                    <div
+                                        class="relative aspect-[4/3] bg-stone-900 overflow-hidden"
+                                        x-data="{ loaded: false }"
+                                    >
                                         @if ($item->foto)
 
+                                            {{-- Placeholder --}}
+                                            <div
+                                                class="absolute inset-0 flex items-center justify-center bg-stone-900"
+                                                :class="loaded ? 'opacity-0' : 'opacity-100'"
+                                            >
+                                                <svg
+                                                    class="w-10 h-10 text-stone-700"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        stroke="currentColor"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="1.5"
+                                                        d="M4 16l4.586-4.586a2 2 0 011.414-.586
+                                                        2 2 0 011.414.586L16 16m-2-2l1.586-1.586
+                                                        a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14
+                                                        a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 001 1v14
+                                                        a1 1 0 001 1z"
+                                                    />
+                                                </svg>
+                                            </div>
+
+                                            {{-- Foto asli --}}
                                             <img
                                                 src="{{ Storage::url('menus/400/' . basename($item->foto)) }}"
                                                 width="400"
@@ -138,7 +167,10 @@
                                                 alt="{{ $item->nama }}"
                                                 loading="lazy"
                                                 decoding="async"
-                                                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                                                class="relative w-full h-full object-cover transition-all duration-500 ease-out
+                                                    group-hover:scale-105"
+                                                :class="loaded ? 'opacity-100' : 'opacity-0'"
+                                                @load="loaded = true"
                                             >
 
                                         @else

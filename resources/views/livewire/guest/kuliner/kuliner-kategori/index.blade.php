@@ -86,9 +86,40 @@
                     >
 
                         {{-- Container Foto --}}
-                        <div class="relative aspect-[4/3] bg-stone-950 overflow-hidden">
-
+                        <div
+                            class="relative aspect-[4/3] bg-stone-950 overflow-hidden"
+                            x-data="{ loaded: false }"
+                        >
                             @if ($item->foto)
+
+                                {{-- Placeholder --}}
+                                <div
+                                    class="absolute inset-0 flex items-center justify-center bg-stone-900
+                                        transition-opacity duration-300"
+                                    :class="loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'"
+                                >
+                                    <svg
+                                        class="w-10 h-10 text-stone-700"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="1.5"
+                                            d="M4 16l4.586-4.586a2 2 0 011.414-.586
+                                            2 2 0 011.414.586L16 16m-2-2l1.586-1.586
+                                            a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14
+                                            a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 001 1v14
+                                            a1 1 0 001 1z"
+                                        />
+                                    </svg>
+                                </div>
+
+                                {{-- Foto asli --}}
                                 <img
                                     src="{{ Storage::url('menus/400/' . basename($item->foto)) }}"
                                     alt="{{ $item->nama }}"
@@ -96,17 +127,40 @@
                                     height="300"
                                     loading="lazy"
                                     decoding="async"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"
+                                    class="relative w-full h-full object-cover
+                                        opacity-0
+                                        group-hover:scale-105
+                                        transition-all duration-500 ease-out"
+                                    :class="loaded ? 'opacity-100' : 'opacity-0'"
+                                    @load="loaded = true"
                                 >
-                            @else
-                                <div class="w-full h-full flex flex-col items-center justify-center text-stone-600 bg-stone-900">
-                                    <svg class="w-8 h-8 mb-1.5 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 011.414.586L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v14a1 1 0 001 1z" />
-                                    </svg>
-                                    <span class="text-xs">Foto belum tersedia</span>
-                                </div>
-                            @endif
 
+                            @else
+
+                                {{-- Foto tidak tersedia --}}
+                                <div class="w-full h-full flex flex-col items-center justify-center text-stone-600 bg-stone-900">
+                                    <svg
+                                        class="w-8 h-8 mb-1.5 opacity-60"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="1.5"
+                                            d="M4 16l4.586-4.586a2 2 0 011.414.586L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M5 20h14a1 1 0 001-1V5a1 1 0 00-1 1v14a1 1 0 001 1z"
+                                        />
+                                    </svg>
+
+                                    <span class="text-xs">
+                                        Foto belum tersedia
+                                    </span>
+                                </div>
+
+                            @endif
                         </div>
 
                         {{-- Informasi Menu --}}

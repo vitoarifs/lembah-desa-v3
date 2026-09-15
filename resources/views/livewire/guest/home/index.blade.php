@@ -37,6 +37,8 @@
         <img
             src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1600&auto=format&fit=crop"
             alt="Pemandangan Lembah Desa Saat Senja"
+            width="1600"
+            height="800"
             class="w-full aspect-[16/8] sm:aspect-[16/8.5] lg:aspect-[16/8] max-h-[480px] object-cover"
             fetchpriority="high"
             loading="eager"
@@ -163,10 +165,14 @@
 
             <div class="aspect-[16/9] overflow-hidden bg-stone-950">
                 <img
-                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop"
-                    alt="Kuliner Tradisional"
+                    src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1600&auto=format&fit=crop"
+                    alt="Pemandangan Lembah Desa Saat Senja"
+                    width="800"
+                    height="450"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                    loading="lazy"
+                    decoding="async"
+                >
             </div>
 
             <div class="p-5 sm:p-6">
@@ -193,10 +199,14 @@
 
             <div class="aspect-[16/9] overflow-hidden bg-stone-950">
                 <img
-                    src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800&auto=format&fit=crop"
-                    alt="Spot Foto Senja"
+                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop"
+                    alt="Kuliner Tradisional"
+                    width="800"
+                    height="450"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+                    loading="lazy"
+                    decoding="async"
+                >
             </div>
 
             <div class="p-5 sm:p-6">
@@ -226,7 +236,11 @@
                 <img
                     src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop"
                     alt="Gazebo Gathering"
+                    width="800"
+                    height="450"
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
                 />
             </div>
 
@@ -317,19 +331,18 @@
 
         <!-- Foto Otentik -->
         <div class="order-first lg:order-last">
-
             <div class="relative rounded-2xl overflow-hidden border border-stone-800 shadow-xl">
-
                 <img
                     src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop"
                     alt="Suasana Alam Lembah Desa"
+                    width="1000"
+                    height="750"
                     class="w-full aspect-[4/3] object-cover"
+                    loading="lazy"
+                    decoding="async"
                 />
-
             </div>
-
         </div>
-
     </div>
 
 </section>

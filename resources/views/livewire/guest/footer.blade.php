@@ -17,6 +17,10 @@
                             <img
                                 src="{{ \Illuminate\Support\Facades\Storage::url($siteIdentity->logo) }}"
                                 alt="{{ $siteIdentity->nama_website ?? 'Logo Website' }}"
+                                width="40"
+                                height="40"
+                                loading="lazy"
+                                decoding="async"
                                 class="w-full h-full object-cover"
                             >
                         </div>

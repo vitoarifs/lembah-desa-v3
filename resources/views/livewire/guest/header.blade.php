@@ -11,7 +11,7 @@
                 <!-- LOGO & BRAND -->
                 <a href="{{ route('home.index') }}" class="flex items-center gap-3 group focus:outline-none">
                     @if($siteIdentity && $siteIdentity->logo)
-                        <img src="{{ asset('storage/' . $siteIdentity->logo) }}" alt="Logo" class="w-10 h-10 rounded-full object-contain">
+                        <img src="{{ asset('storage/' . $siteIdentity->logo) }}" alt="Logo" width="40" height="40" decoding="async" class="w-10 h-10 rounded-full object-contain">
                     @else
                         <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
                 <!-- DESKTOP NAVIGATION -->
                 <nav class="hidden md:flex items-center gap-1 lg:gap-2">
                     <!-- Beranda -->
-                    <a href="{{ route('home.index') }}" wire:navigate
+                    <a href="{{ route('home.index') }}"
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('home.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Beranda
                         @if(request()->routeIs('home.index'))
@@ -48,7 +48,7 @@
                     </a>
 
                     <!-- Kuliner -->
-                    <a href="{{ route('kuliner.index') }}" wire:navigate
+                    <a href="{{ route('kuliner.index') }}"
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('kuliner.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Kuliner
                         @if(request()->routeIs('kuliner.index'))
@@ -57,7 +57,7 @@
                     </a>
 
                     <!-- Event & Acara -->
-                    <a href="{{ route('event.index') }}" wire:navigate
+                    <a href="{{ route('event.index') }}"
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('event.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Event & Acara
                         @if(request()->routeIs('event.index'))
@@ -79,7 +79,7 @@
                 <div class="hidden md:block">
                     <a 
                         href="{{ route('kontak-kami.index') }}" 
-                        wire:navigate
+                       
                         class="inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all duration-300 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-full shadow-md shadow-orange-950/40 hover:shadow-lg focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-stone-950 active:scale-95"
                     >
                         Reservasi Sekarang
@@ -119,25 +119,25 @@
         >
             <div class="flex flex-col space-y-1">
                 <!-- Beranda -->
-                <a href="{{ route('home.index') }}" @click="isOpen = false" wire:navigate
+                <a href="{{ route('home.index') }}" @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('home.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Beranda
                 </a>
 
                 <!-- Kuliner -->
-                <a href="{{ route('kuliner.index') }}" @click="isOpen = false" wire:navigate
+                <a href="{{ route('kuliner.index') }}" @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('kuliner.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Kuliner
                 </a>
 
                 <!-- Event & Acara -->
-                <a href="{{ route('event.index') }}" @click="isOpen = false" wire:navigate
+                <a href="{{ route('event.index') }}" @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('event.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Event & Acara
                 </a>
 
                 <!-- Reservasi Gazebo -->
-                <a href="{{ route('kontak-kami.index') }}" @click="isOpen = false" wire:navigate
+                <a href="{{ route('kontak-kami.index') }}" @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('kontak-kami.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Kontak
                 </a>
@@ -147,7 +147,7 @@
                     <a 
                         href="{{ route('kontak-kami.index') }}" 
                         @click="isOpen = false"
-                        wire:navigate
+                       
                         class="block w-full text-center px-4 py-3 text-base font-medium text-white bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 rounded-xl shadow-md transition-all"
                     >
                         Reservasi Sekarang
