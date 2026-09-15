@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\Menu;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -231,6 +232,8 @@ public function save()
         }
     }
 
+    Cache::forget('kuliner_categories');
+
     session()->flash(
         'message',
         $this->menuId
@@ -279,6 +282,8 @@ public function save()
         }
 
         $menu->delete();
+
+        Cache::forget('kuliner_categories');
 
         session()->flash(
             'message',

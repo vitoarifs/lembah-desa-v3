@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
@@ -65,6 +66,8 @@ class KulinerCategoryIndex extends Component
             $validated
         );
 
+        Cache::forget('kuliner_categories');
+
         session()->flash('message', $this->categoryId ? 'Kategori berhasil diperbarui!' : 'Kategori baru berhasil ditambahkan!');
         $this->closeModal();
     }
@@ -90,6 +93,9 @@ class KulinerCategoryIndex extends Component
         }
 
         $category->delete();
+
+        Cache::forget('kuliner_categories');
+
         session()->flash('message', 'Kategori berhasil dihapus!');
     }
 
