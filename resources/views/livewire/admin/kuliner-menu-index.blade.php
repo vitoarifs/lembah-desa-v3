@@ -78,6 +78,8 @@
                 >
 
                 <svg
+                    wire:loading.remove
+                    wire:target="search"
                     class="w-4 h-4 text-stone-500 absolute left-3 top-3"
                     fill="none"
                     stroke="currentColor"
@@ -89,6 +91,17 @@
                         stroke-width="2"
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                     />
+                </svg>
+
+                <svg
+                    wire:loading
+                    wire:target="search"
+                    class="animate-spin w-4 h-4 text-amber-500 absolute left-3 top-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
 
             </div>
@@ -152,8 +165,22 @@
                 </thead>
 
 
-                <!-- Table Body -->
-                <tbody class="divide-y divide-stone-800/60 text-xs sm:text-sm">
+                <!-- Skeleton Loading Body -->
+                <tbody wire:loading.delay wire:target="search, categoryFilter, gotoPage, previousPage, nextPage" class="divide-y divide-stone-800/60 text-xs sm:text-sm">
+                    @for ($i = 0; $i < 5; $i++)
+                        <tr class="animate-pulse">
+                            <td class="py-4 px-6"><div class="w-12 h-12 bg-stone-800/60 rounded-xl"></div></td>
+                            <td class="py-4 px-6"><div class="h-4 w-36 bg-stone-800/60 rounded"></div></td>
+                            <td class="py-4 px-6"><div class="h-4 w-24 bg-stone-800/60 rounded"></div></td>
+                            <td class="py-4 px-6"><div class="h-4 w-20 bg-stone-800/60 rounded"></div></td>
+                            <td class="py-4 px-6"><div class="h-4 w-28 bg-stone-800/60 rounded"></div></td>
+                            <td class="py-4 px-6 text-right"><div class="h-8 w-20 bg-stone-800/60 rounded-xl ml-auto"></div></td>
+                        </tr>
+                    @endfor
+                </tbody>
+
+                <!-- Real Table Body -->
+                <tbody wire:loading.remove.delay wire:target="search, categoryFilter, gotoPage, previousPage, nextPage" class="divide-y divide-stone-800/60 text-xs sm:text-sm">
 
                     @forelse ($menus as $menu)
 
@@ -708,7 +735,8 @@
 
                             <button
                                 type="submit"
-                                class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold transition-colors flex items-center gap-2"
+                                wire:loading.attr="disabled"
+                                class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-50 disabled:cursor-not-allowed text-stone-950 font-semibold transition-colors flex items-center gap-2"
                             >
                                 <span wire:loading.remove>
                                     {{ $menuId ? 'Simpan Perubahan' : 'Tambah Menu' }}
