@@ -79,6 +79,7 @@
                         {{-- VIEW ALL --}}
                         <a
                             href="{{ route('kuliner.category.index', ['category' => $category->slug]) }}"
+                            wire:navigate
                             class="shrink-0 inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-500 hover:text-amber-400 transition-colors"
                         >
 
@@ -122,6 +123,7 @@
 
                                 <a
                                     href="{{ route('kuliner.category.detail.index', ['category' => $category->slug, 'menu' => $item->slug]) }}"
+                                    wire:navigate
                                     class="h-full bg-stone-900 border border-stone-800 rounded-2xl overflow-hidden flex flex-col
                                            hover:border-stone-700 transition-colors duration-200"
                                 >
@@ -260,6 +262,7 @@
 
                                 <a
                                     href="{{ route('kuliner.category.index', ['category' => $category->slug]) }}"
+                                    wire:navigate
                                     class="h-full min-h-[280px] bg-stone-900/50 border border-dashed border-stone-800
                                            rounded-2xl flex flex-col items-center justify-center p-6 text-center"
                                 >

@@ -25,45 +25,52 @@ class LoginForm extends Form
      *
      * @throws ValidationException
      */
-    public function authenticate(): void
-    {
-        $this->ensureIsNotRateLimited();
+public function authenticate(): void
+{
+    $this->validate();
 
-        // Cari user berdasarkan email
-        $user = User::where('email', $this->email)->first();
+    // Normalisasi email
+    $this->email = Str::lower(trim($this->email));
 
-        // Email tidak ditemukan
-        if (!$user) {
-            RateLimiter::hit($this->throttleKey());
+    // Cek rate limiting sebelum proses autentikasi
+    $this->ensureIsNotRateLimited();
 
-            throw ValidationException::withMessages([
-                'form.email' => 'Email tidak terdaftar.',
-            ]);
-        }
+    // Cari user berdasarkan email
+    $user = User::where('email', $this->email)->first();
 
-        // Akun tidak aktif
-        if (!$user->is_active) {
-            RateLimiter::hit($this->throttleKey());
+    // Email tidak ditemukan
+    if (!$user) {
+        RateLimiter::hit($this->throttleKey());
 
-            throw ValidationException::withMessages([
-                'form.email' => 'Akun sedang dinonaktifkan. Silakan hubungi administrator.',
-            ]);
-        }
-
-        // Password salah
-        if (!Hash::check($this->password, $user->password)) {
-            RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([
-                'form.password' => 'Password yang kamu masukkan salah.',
-            ]);
-        }
-
-        // Semua validasi berhasil → login
-        Auth::login($user);
-
-        RateLimiter::clear($this->throttleKey());
+        throw ValidationException::withMessages([
+            'form.email' => 'Email tidak terdaftar.',
+        ]);
     }
+
+    // Akun tidak aktif
+    if (!$user->is_active) {
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'form.email' => 'Akun sedang dinonaktifkan. Silakan hubungi administrator.',
+        ]);
+    }
+
+    // Password salah
+    if (!Hash::check($this->password, $user->password)) {
+        RateLimiter::hit($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'form.password' => 'Password yang kamu masukkan salah.',
+        ]);
+    }
+
+    // Semua validasi berhasil → login
+    Auth::login($user);
+
+    // Hapus rate limit setelah login berhasil
+    RateLimiter::clear($this->throttleKey());
+}
 
     /**
      * Ensure the authentication request is not rate limited.

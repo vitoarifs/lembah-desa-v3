@@ -6,11 +6,13 @@ use App\Livewire\Forms\Guest\KontakKami\EmailForm;
 use App\Livewire\Forms\Guest\KontakKami\WaForm;
 use App\Mail\ContactMessageMail;
 use App\Models\ContactMessage;
+use App\Models\SiteIdentity;
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use App\Models\SiteIdentity;
 
 #[Layout('layouts.guest')]
 class Index extends Component
@@ -21,10 +23,22 @@ class Index extends Component
 
     public function sendWa(): void
     {
+        $this->waForm->validate();
+
+        $key = 'wa-form:' . request()->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+
+            throw ValidationException::withMessages([
+                'waForm.nama' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
+            ]);
+        }
+
+        RateLimiter::hit($key, 60);
+
         $identity = SiteIdentity::getSettings();
         $nomorWa = $identity?->nomor_whatsapp;
-
-        $this->waForm->validate();
 
         $tanggal = Carbon::parse($this->waForm->tanggal)
             ->locale('id')
@@ -47,6 +61,18 @@ class Index extends Component
     public function sendEmail(): void
     {
         $this->emailForm->validate();
+
+        $key = 'email-form:' . request()->ip();
+
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+
+            throw ValidationException::withMessages([
+                'emailForm.nama' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
+            ]);
+        }
+
+        RateLimiter::hit($key, 60);
 
         $message = ContactMessage::create([
             'nama' => $this->emailForm->nama,

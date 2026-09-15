@@ -9,7 +9,7 @@
             <div class="flex items-center justify-between">
                 
                 <!-- LOGO & BRAND -->
-                <a href="{{ route('home.index') }}" class="flex items-center gap-3 group focus:outline-none">
+                <a href="{{ route('home.index') }}" wire:navigate class="flex items-center gap-3 group focus:outline-none">
                     @if($siteIdentity && $siteIdentity->logo)
                         <img src="{{ asset('storage/' . $siteIdentity->logo) }}" alt="Logo" width="40" height="40" decoding="async" class="w-10 h-10 rounded-full object-contain">
                     @else
@@ -40,6 +40,7 @@
                 <nav class="hidden md:flex items-center gap-1 lg:gap-2">
                     <!-- Beranda -->
                     <a href="{{ route('home.index') }}"
+                    wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('home.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Beranda
                         @if(request()->routeIs('home.index'))
@@ -49,6 +50,7 @@
 
                     <!-- Kuliner -->
                     <a href="{{ route('kuliner.index') }}"
+                    wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('kuliner.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Kuliner
                         @if(request()->routeIs('kuliner.index'))
@@ -58,6 +60,7 @@
 
                     <!-- Event & Acara -->
                     <a href="{{ route('event.index') }}"
+                    wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('event.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Event & Acara
                         @if(request()->routeIs('event.index'))
@@ -119,19 +122,19 @@
         >
             <div class="flex flex-col space-y-1">
                 <!-- Beranda -->
-                <a href="{{ route('home.index') }}" @click="isOpen = false"
+                <a href="{{ route('home.index') }}" wire:navigate @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('home.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Beranda
                 </a>
 
                 <!-- Kuliner -->
-                <a href="{{ route('kuliner.index') }}" @click="isOpen = false"
+                <a href="{{ route('kuliner.index') }}" wire:navigate @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('kuliner.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Kuliner
                 </a>
 
                 <!-- Event & Acara -->
-                <a href="{{ route('event.index') }}" @click="isOpen = false"
+                <a href="{{ route('event.index') }}" wire:navigate @click="isOpen = false"
                 class="px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150 {{ request()->routeIs('event.index') ? 'bg-amber-500/15 text-amber-400 font-semibold border border-amber-500/20' : 'text-stone-300 hover:bg-stone-800/60 hover:text-white' }}">
                     Event & Acara
                 </a>
