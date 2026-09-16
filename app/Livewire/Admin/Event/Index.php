@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 #[Layout('layouts.app')]
 class Index extends Component
@@ -75,6 +76,8 @@ class Index extends Component
             ]
         );
 
+        ResponseCache::clear();
+
         session()->flash('message', $this->eventId ? 'Event berhasil diperbarui.' : 'Event baru berhasil ditambahkan.');
 
         $this->closeModal();
@@ -91,6 +94,8 @@ class Index extends Component
         $event = Event::findOrFail($this->eventId);
         $event->delete();
 
+        ResponseCache::clear();
+
         session()->flash('message', 'Event berhasil dihapus.');
         $this->isConfirmingDelete = false;
         $this->resetFields();
@@ -100,6 +105,7 @@ class Index extends Component
     {
         $event = Event::findOrFail($id);
         $event->update(['is_active' => !$event->is_active]);
+        ResponseCache::clear();
     }
 
     public function closeModal()

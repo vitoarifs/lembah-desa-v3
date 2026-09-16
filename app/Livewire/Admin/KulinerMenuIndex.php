@@ -4,7 +4,6 @@ namespace App\Livewire\Admin;
 
 use App\Models\Category;
 use App\Models\Menu;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -15,6 +14,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 #[Layout('layouts.app')]
 #[Title('Kelola Menu Kuliner - Admin Lembah Desa')]
@@ -232,7 +232,7 @@ public function save()
         }
     }
 
-    Cache::forget('kuliner_categories');
+    ResponseCache::clear();
 
     session()->flash(
         'message',
@@ -283,7 +283,7 @@ public function save()
 
         $menu->delete();
 
-        Cache::forget('kuliner_categories');
+        ResponseCache::clear();
 
         session()->flash(
             'message',

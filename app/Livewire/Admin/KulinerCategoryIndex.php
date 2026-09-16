@@ -10,6 +10,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 #[Layout('layouts.app')]
 #[Title('Kelola Kategori Kuliner - Admin Lembah Desa')]
@@ -67,6 +68,7 @@ class KulinerCategoryIndex extends Component
         );
 
         Cache::forget('kuliner_categories');
+        ResponseCache::clear();
 
         session()->flash('message', $this->categoryId ? 'Kategori berhasil diperbarui!' : 'Kategori baru berhasil ditambahkan!');
         $this->closeModal();
@@ -95,6 +97,7 @@ class KulinerCategoryIndex extends Component
         $category->delete();
 
         Cache::forget('kuliner_categories');
+        ResponseCache::clear();
 
         session()->flash('message', 'Kategori berhasil dihapus!');
     }

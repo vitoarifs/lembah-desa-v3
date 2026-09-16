@@ -4,11 +4,12 @@ namespace App\Livewire\Admin\SiteIdentity;
 
 use App\Models\SiteIdentity;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
+use Spatie\ResponseCache\Facades\ResponseCache;
 
 #[Layout('layouts.app', ['title' => 'Identitas Website'])]
 class Index extends Component
@@ -178,6 +179,8 @@ class Index extends Component
         );
 
         SiteIdentity::clearCache();
+
+        ResponseCache::clear();
 
         $this->existingLogo = $logoPath;
         $this->existingFavicon = $faviconPath;
