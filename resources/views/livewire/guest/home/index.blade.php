@@ -35,8 +35,8 @@
     <!-- Lebar bingkai membesar mengikuti ukuran layar perangkat -->
     <div class="mt-8 sm:mt-10 lg:mt-12 mx-auto rounded-2xl overflow-hidden border border-stone-800 shadow-2xl shadow-black/60 max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl">
         <img
-            src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1600&auto=format&fit=crop"
-            alt="Pemandangan Lembah Desa Saat Senja"
+            src="{{ asset('storage/homepage-assets/ld-hero.webp') }}"
+            alt="Pemandangan malam lembah desa disertai lampu berkilau indah"
             width="1600"
             height="800"
             class="w-full aspect-[16/8] sm:aspect-[16/8.5] lg:aspect-[16/8] max-h-[480px] object-cover"
@@ -165,7 +165,7 @@
 
             <div class="aspect-[16/9] overflow-hidden bg-stone-950">
                 <img
-                    src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?q=80&w=1600&auto=format&fit=crop"
+                    src="{{ asset('storage/homepage-assets/ld-card1.webp') }}"
                     alt="Pemandangan Lembah Desa Saat Senja"
                     width="800"
                     height="450"
@@ -199,7 +199,7 @@
 
             <div class="aspect-[16/9] overflow-hidden bg-stone-950">
                 <img
-                    src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop"
+                    src="{{ asset('storage/homepage-assets/ld-card2.webp') }}"
                     alt="Kuliner Tradisional"
                     width="800"
                     height="450"
@@ -234,7 +234,7 @@
 
             <div class="aspect-[16/9] overflow-hidden bg-stone-950">
                 <img
-                    src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop"
+                    src="{{ asset('storage/homepage-assets/ld-card3.webp') }}"
                     alt="Gazebo Gathering"
                     width="800"
                     height="450"
@@ -333,7 +333,7 @@
         <div class="order-first lg:order-last">
             <div class="relative rounded-2xl overflow-hidden border border-stone-800 shadow-xl">
                 <img
-                    src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop"
+                    src="{{ asset('storage/homepage-assets/ld-about-us.webp') }}"
                     alt="Suasana Alam Lembah Desa"
                     width="1000"
                     height="750"
