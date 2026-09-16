@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
+        // Ambil SiteIdentity dari cache atau database
         $siteIdentity = SiteIdentity::getSettings();
 
         // Konfigurasi mail hanya jika SiteIdentity tersedia
@@ -46,8 +47,7 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
-        // Tetap bagikan variabel ke semua Blade,
-        // meskipun SiteIdentity belum tersedia.
+        // Bagikan SiteIdentity ke semua Blade
         View::composer('*', function ($view) use ($siteIdentity) {
             $view->with('siteIdentity', $siteIdentity);
         });

@@ -56,6 +56,8 @@ class Index extends Component
             'redirect-to-whatsapp',
             url: $url
         );
+
+        $this->waForm->reset();
     }
 
     public function sendEmail(): void
