@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Halaman Tidak Ditemukan - 
+    <title>Akses Ditolak -
         @if ($siteIdentity?->nama_website)
             {{$siteIdentity->nama_website}}
         @else
@@ -25,16 +25,16 @@
 
             <div class="mt-6">
                 <h1 class="text-8xl sm:text-9xl font-serif font-bold text-stone-200">
-                    404
+                    403
                 </h1>
 
                 <h2 class="mt-4 text-2xl sm:text-3xl font-serif font-semibold text-stone-100">
-                    Halaman Tidak Ditemukan
+                    Akses Ditolak
                 </h2>
 
                 <p class="mt-4 text-sm sm:text-base leading-relaxed text-stone-400 max-w-md mx-auto">
-                    Sepertinya halaman yang kamu cari sedang tidak ada di sini.
-                    Mari kembali dan nikmati perjalananmu di Lembah Desa.
+                    Maaf, kamu tidak memiliki izin untuk mengakses halaman ini.
+                    Silakan kembali ke halaman utama Lembah Desa.
                 </p>
             </div>
 

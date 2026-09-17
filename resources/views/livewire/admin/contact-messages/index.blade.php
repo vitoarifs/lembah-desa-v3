@@ -346,13 +346,6 @@
               >
                 {{ $selectedMessage->is_read ? 'Tandai Belum Dibaca' : 'Tandai Sudah Dibaca' }}
               </button>
-
-              <a
-                href="mailto:{{ $selectedMessage->email }}?subject=Balasan: Pesan dari Website Lembah Desa Pulutan"
-                class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-stone-950 transition-colors w-full sm:w-auto text-center"
-              >
-                Balas via Email
-              </a>
             </div>
 
             <div class="flex items-center gap-2 w-full sm:w-auto justify-end">

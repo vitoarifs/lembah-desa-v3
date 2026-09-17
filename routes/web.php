@@ -14,7 +14,7 @@ Route::get('/gerbang-admin', function () {
 
 
 // Rute Publik yang di-cache
-Route::middleware(CacheResponse::using(60 * 24))->group(function () {
+Route::middleware(CacheResponse::using(60 * 24 * 30))->group(function () {
 
     Route::get('/', \App\Livewire\Guest\Home\Index::class)
         ->name('home.index');
