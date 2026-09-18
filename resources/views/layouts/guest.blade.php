@@ -28,7 +28,7 @@
         <livewire:guest.header />
 
         <!-- MAIN CONTENT (Memenuhi Sisa Layar dengan Latar Krem Pedesaan) -->
-        <main class="flex-grow mt-3 lg:mt-6">
+        <main class="flex-grow mt-10 lg:mt-12">
             {{ $slot }}
         </main>
 

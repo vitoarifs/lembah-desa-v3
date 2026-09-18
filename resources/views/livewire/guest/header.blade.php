@@ -11,34 +11,33 @@
                 <!-- LOGO & BRAND -->
                 <a href="{{ route('home.index') }}" wire:navigate class="flex items-center gap-3 group focus:outline-none">
                     @if($siteIdentity && $siteIdentity->logo)
-                        <img src="{{ asset('storage/' . $siteIdentity->logo) }}" alt="Logo" width="40" height="40" decoding="async" class="w-10 h-10 rounded-full object-contain">
+                        <img src="{{ asset('storage/' . $siteIdentity->logo) }}" alt="Logo" width="40" height="40" decoding="async" class="w-10 h-10 rounded-full object-contain shrink-0">
                     @else
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-600 to-orange-500 flex items-center justify-center text-white shrink-0">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                             </svg>
                         </div>
                     @endif
 
-                    <div class="flex flex-col">
-                        <span class="font-bold text-xl sm:text-2xl tracking-tight font-serif leading-none text-stone-100 max-w-[250px] sm:max-w-[250px] line-clamp-2 whitespace-normal">
+                    <div class="flex flex-col min-w-0">
+                        <span class="font-bold text-lg sm:text-2xl tracking-tight font-serif leading-tight text-stone-100 max-w-[200px] sm:max-w-[250px] line-clamp-2 whitespace-normal">
                             @if ($siteIdentity && $siteIdentity->nama_website)
                                 {{ $siteIdentity->nama_website }}
                             @else
                                 Lembah<span class="text-amber-500">Desa</span>
                             @endif
                         </span>
-                        <span class="text-[10px] uppercase tracking-widest font-semibold mt-0.5 text-amber-400/90">
-                            @if ($siteIdentity?->tagline)
+                        @if ($siteIdentity?->tagline)
+                            <span class="text-[10px] uppercase tracking-widest font-semibold mt-0.5 text-amber-400/90 truncate">
                                 {{ $siteIdentity->tagline }}
-                            @endif
-                        </span>
+                            </span>
+                        @endif
                     </div>
                 </a>
 
                 <!-- DESKTOP NAVIGATION -->
                 <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-                    <!-- Beranda -->
                     <a href="{{ route('home.index') }}"
                     wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('home.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
@@ -48,7 +47,6 @@
                         @endif
                     </a>
 
-                    <!-- Kuliner -->
                     <a href="{{ route('kuliner.index') }}"
                     wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('kuliner.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
@@ -58,7 +56,6 @@
                         @endif
                     </a>
 
-                    <!-- Event & Acara -->
                     <a href="{{ route('event.index') }}"
                     wire:navigate
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('event.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
@@ -68,7 +65,6 @@
                         @endif
                     </a>
 
-                    <!-- Reservasi -->
                     <a href="{{ route('kontak-kami.index') }}"
                     class="relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full {{ request()->routeIs('kontak-kami.index') ? 'text-amber-400 font-semibold bg-amber-500/10 border border-amber-500/20' : 'text-stone-300 hover:text-white hover:bg-stone-800/60' }}">
                         Kontak
@@ -97,7 +93,10 @@
                         aria-label="Toggle Menu"
                     >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <!-- Icon Hamburger -->
                             <path x-show="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            
+                            <!-- Icon Silang (Close) dengan x-cloak murni -->
                             <path x-show="isOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
@@ -109,6 +108,7 @@
         <!-- MOBILE NAVIGATION DROPDOWN -->
         <div 
             x-show="isOpen" 
+            x-cloak
             x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 -translate-y-2 scale-95"
             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
@@ -116,8 +116,7 @@
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 -translate-y-2 scale-95"
             @click.away="isOpen = false"
-            x-cloak
-            class="md:hidden mx-4 mt-2 bg-stone-900/95 backdrop-blur-md border border-stone-800 shadow-2xl rounded-2xl p-4"
+            class="md:hidden mx-4 mt-2 bg-stone-900/95 backdrop-blur-md border border-stone-800 shadow-2xl rounded-2xl p-4 max-h-[80vh] overflow-y-auto"
         >
             <div class="flex flex-col space-y-1">
                 <!-- Beranda -->
@@ -158,5 +157,4 @@
         </div>
     </header>
 
-    <div class="py-3 invisible pointer-events-none" aria-hidden="true"></div>
 </div>

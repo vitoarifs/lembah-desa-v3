@@ -35,7 +35,7 @@
     <!-- Lebar bingkai membesar mengikuti ukuran layar perangkat -->
     <div class="mt-8 sm:mt-10 lg:mt-12 mx-auto rounded-2xl overflow-hidden border border-stone-800 shadow-2xl shadow-black/60 max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-5xl">
         <img
-            src="{{ asset('storage/homepage-assets/ld-hero.webp') }}"
+            src="{{ asset('storage/homepage-assets/ld-card2.webp') }}"
             alt="Pemandangan malam lembah desa disertai lampu berkilau indah"
             width="1600"
             height="800"
@@ -291,22 +291,18 @@
             </h2>
 
             <p class="text-stone-300 text-sm sm:text-[15px] lg:text-base leading-relaxed mb-4">
-                Berawal dari gazebo keluarga sederhana di pinggir lembah, kami tumbuh menjadi ruang singgah bagi siapa saja yang merindukan ketenangan suasana pedesaan dan keaslian cita rasa Nusantara.
-            </p>
-
-            <p class="text-stone-400 text-sm lg:text-[15px] leading-relaxed mb-6 sm:mb-7">
-                Seluruh bahan masakan dipetik langsung dari petani lokal di sekitar kawasan desa, memastikan kesegaran hidangan sekaligus mendukung keberlanjutan ekonomi warga setempat.
+                Bermula dari gazebo keluarga kecil, sekarang kami hadir sebagai tempat kumpul yang nyaman di tengah suasana desa yang asri. Kami menyajikan aneka menu kuliner populer dan jajanan yang cocok untuk menemani waktu santai Anda.
             </p>
 
 
-            <ul class="space-y-3 text-stone-300 text-sm lg:text-[15px] mb-7 sm:mb-8">
+            <ul class="space-y-3 text-stone-300 text-sm lg:text-[15px] mt-5 mb-7 sm:mb-8">
 
                 <li class="flex items-center gap-3">
                     <svg class="w-5 h-5 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
 
-                    <span>Area gazebo luas dengan hembusan angin alami</span>
+                    <span>Gazebo luas yang nyaman untuk tempat berkumpul</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -314,7 +310,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
 
-                    <span>Resep keluarga asli tanpa bahan pengawet</span>
+                    <span>Menu variatif yang cocok untuk semua usia (makanan utama & camilan)</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -322,7 +318,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                     </svg>
 
-                    <span>Fasilitas mushola bersih, toilet, dan area bermain anak</span>
+                    <span>Fasilitas mushola, toilet, dan area bermain anak yang memadai</span>
                 </li>
 
             </ul>
